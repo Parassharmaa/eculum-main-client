@@ -2,25 +2,25 @@
 <div id="navcss">
 <md-whiteframe  md-elevation="4">
   <md-toolbar class="md-primary">
-    <md-button class="md-icon-button menu-icon" @click="toggleNav">
+    <md-button class="md-icon-button menu-icon" v-bind:class="{'not-visible': ['login', 'waiting'].indexOf($route.name) !== -1}" @click="toggleNav">
         <md-icon>menu</md-icon>
     </md-button>
-    <h1 class="md-title brand-name" style="flex:1">Eculum</h1>
+    <h1 class="md-title brand-name" style="flex:1; text-align:center">Eculum</h1>
     <md-menu md-direction="bottom left">
         <md-button class="md-icon-button" md-menu-trigger>
         <md-icon>more_vert</md-icon>
       </md-button>
 
       <md-menu-content>
-        <md-menu-item>My Item 1</md-menu-item>
+        <md-menu-item @click='logout'>Logout</md-menu-item>
         <md-menu-item>My Item 2</md-menu-item>
         <md-menu-item>My Item 3</md-menu-item>
       </md-menu-content>
     </md-menu>
   </md-toolbar>
   </md-whiteframe>
-
-  <md-sidenav class="md-left c-side-nav" ref="leftSidenav">
+  <md-sidenav class="md-left c-side-nav" ref="leftSidenav" 
+      v-if="['login', 'waiting'].indexOf($route.name) === -1">
       <div class="phone-viewport">
       <md-toolbar md-theme="blue" class="md-small side-nav-header">
         <md-list>
@@ -93,6 +93,16 @@ export default {
   methods: {
     toggleNav () {
       this.$refs.leftSidenav.toggle()
+    },
+
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
+    }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters.isLoggedIn
     }
   }
 }
@@ -119,7 +129,7 @@ export default {
   }
 
   .menu-icon {
-    display: none;
+    visibility: hidden;
   }
 }
 

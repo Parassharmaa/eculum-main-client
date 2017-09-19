@@ -1,41 +1,8 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
-    <router-view>
+    <router-view v-bind:class="{'adjust-margin': ['login', 'waiting'].indexOf($route.name) === -1}">
     </router-view>
-    <div class="test">
-    dhkdhksd
-    djsldjsld
-    sd
-    s
-    d
-    s
-    d
-    s
-    d
-
-    s
-    d
-    s
-    d
-    fsf
-    s
-    fs
-    f
-    s
-    f
-    s
-    fsf
-    s
-    fsfffffffsfs
-
-
-    sf
-    s
-    f
-    sf
-    s
-    </div>
   </div>
 </template>
 
@@ -47,6 +14,7 @@ export default {
   name: 'app',
   components: { NavBar }
 }
+
 </script>
 
 <style>
@@ -55,8 +23,9 @@ export default {
 }
 
 @media screen and (min-width: 822px) {
-  .test {
+  .adjust-margin {
     margin-left: 330px !important;
   }
 }
+
 </style>
