@@ -11,18 +11,25 @@ const router = new Router({
     {
       path: '/',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {isLoggedIn: true}
     },
     {
       path: '/waiting',
       name: 'waiting',
-      component: Wait
+      component: Wait,
+      meta: {isLoggedIn: true}
     },
     {
       path: '/app',
       name: 'dashboard',
       component: Dashboard,
-      meta: {AuthState: true}
+      meta: {validate: true}
+    },
+    {
+      path: '*',
+      name: '404',
+      redirect: '/app'
     }
   ],
   hashbang: true,
@@ -31,13 +38,25 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.AuthState)) {
+  if (to.matched.some(record => record.meta.validate)) {
     if (!localStorage.getItem('eclmtoken')) {
+      console.log(to)
       next({
-        path: '/',
-        query: {
-          redirect: to.fullPath
-        }
+        path: '/'
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.isLoggedIn)) {
+    if (localStorage.getItem('eclmtoken')) {
+      next({
+        path: '/app'
       })
     } else {
       next()

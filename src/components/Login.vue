@@ -1,38 +1,92 @@
 <template>
-	<div>
-		<md-card class="login-card">
-		  <md-card-area md-inset>
-		    <md-card-content>
-		      <a href="http://localhost:5000/api/v1/auth/twitter">
-		      	<md-button class="md-raised twitter-color">
-		      		<img class="btn-icon" src="../assets/Twitter_Social_Icon_Circle_Color.png">
-		      		Login with Twitter
-		      	</md-button>
-		      </a>
-		    </md-card-content>
-		  </md-card-area>
+	<v-layout row>
+    <v-flex>
+      <v-card class="login-card" elevation-10>
+      	<center>
+        <a href="http://localhost:5000/api/v1/auth/twitter" class="btn-url">
+          	<v-btn round primary dark class="twitter-color">
+          		<img class="btn-icon" src="../assets/Twitter_Social_Icon_Circle_Color.png">
+          		Login with Twitter
+          	</v-btn>
+        </a>
+      	<br><br>
+      	or
+      	<!-- <v-divider></v-divider> -->
+    <form v-on:keyup.enter="login">
+    <v-text-field
+      v-model="cred.email"
+      label="E-mail"
+      single-line
+      :error-messages="errors.collect('email')"
+      v-validate="'required|email'"
+      data-vv-name="email"
+      required
+    ></v-text-field>
+    <router-link to=''>
+      <p class="text-xs-right"> Forgot your password? </p>
+    </router-link>
+    <v-text-field
+      v-model="cred.password"
+      label="Password"
+      single-line
+      hint="At least 8 characters"
+      :error-messages="errors.collect('password')"
+      v-validate="'required'"
+      type="password"
+      data-vv-name="password"
+      required
+      ></v-text-field>
 
-		  <md-card-content>
-			<form validate @submit.stop.prevent="submit">
-				<md-input-container md-inline md-clearable>
-				    <label>Email</label>
-				    <md-input type="email" required></md-input>
-			  	</md-input-container>
-				<md-input-container md-has-password md-inline>
-					<label>Password </label>
-					<md-input type="password" required></md-input>
-				</md-input-container>
-				<md-button class="md-raised md-primary">Login</md-button>
-			</form>
-		  </md-card-content>
-		</md-card>
-	</div>
+    <v-btn @click="login" primary>Login &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
+  </form>
+      </center>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
+import emailLoginAPI from '@/api/EmailLogin'
 
 export default {
-  name: 'login'
+  name: 'login',
+
+  $validates: true,
+
+  data () {
+    return {
+      cred: {
+        email: '',
+        password: ''
+      },
+      loading: false
+    }
+  },
+  methods: {
+    login () {
+      this.loading = true
+      this.$validator.validateAll()
+      .then(isValidated => {
+        if (isValidated) {
+          emailLoginAPI.postCred(this.cred)
+          .then(response => {
+            if (response.status === 200) {
+              this.$router.push(response.data.next)
+            }
+          })
+          .catch(error => {
+            alert(error.response.data.message)
+            this.cred.email = ''
+            this.cred.password = ''
+            this.loading = false
+            this.$validator.clean()
+          })
+        } else {
+          this.loading = false
+        }
+      })
+    }
+  }
 }
 </script>
 
@@ -53,6 +107,7 @@ p {
 	margin-top:60px;
 	max-width:350px;
 	text-align: center;
+    padding:15px 30px;
 }
 
 .btn-icon {
@@ -75,6 +130,10 @@ p {
 
 .login-card .md-button {
 	border-radius: 2px !important;
+}
+
+.btn-url {
+    text-decoration: none;
 }
 </style>
 

@@ -2,29 +2,18 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import router from './router'
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.css'
 import localforage from 'localforage'
 import App from './components/App'
 import store from './store'
+import Vuetify from 'vuetify'
+import VeeValidate from 'vee-validate'
+import('../node_modules/vuetify/dist/vuetify.min.css')
+import('./stylus/main.styl')
 
-Vue.use(VueMaterial)
+Vue.use(Vuetify)
+Vue.use(VeeValidate)
+
 Vue.config.productionTip = false
-
-/* Material Theme */
-Vue.material.registerTheme('main', {
-  primary: {
-    color: 'light-blue',
-    hue: 600,
-    textColor: 'white'
-  },
-  accent: {
-    color: 'lime',
-    hue: 500
-  }
-})
-
-Vue.material.setCurrentTheme('main')
 
 localforage.config({
   name: 'eculum'

@@ -1,93 +1,69 @@
 <template>
-<div id="navcss">
-<md-whiteframe  md-elevation="4">
-  <md-toolbar class="md-primary">
-    <md-button class="md-icon-button menu-icon" v-bind:class="{'not-visible': ['login', 'waiting'].indexOf($route.name) !== -1}" @click="toggleNav">
-        <md-icon>menu</md-icon>
-    </md-button>
-    <h1 class="md-title brand-name" style="flex:1; text-align:center">Eculum</h1>
-    <md-menu md-direction="bottom left">
-        <md-button class="md-icon-button" md-menu-trigger>
-        <md-icon>more_vert</md-icon>
-      </md-button>
-
-      <md-menu-content>
-        <md-menu-item @click='logout'>Logout</md-menu-item>
-        <md-menu-item>My Item 2</md-menu-item>
-        <md-menu-item>My Item 3</md-menu-item>
-      </md-menu-content>
-    </md-menu>
-  </md-toolbar>
-  </md-whiteframe>
-  <md-sidenav class="md-left c-side-nav" ref="leftSidenav" 
-      v-if="['login', 'waiting'].indexOf($route.name) === -1">
-      <div class="phone-viewport">
-      <md-toolbar md-theme="blue" class="md-small side-nav-header">
-        <md-list>
-        <md-list-item>
-          <md-avatar>
-            <img src="../assets/avatar-2.jpg" alt="Avatar">
-          </md-avatar>
-          <span style="flex:1; font-size:18px">Paras Sharma</span>
-          <md-button class="md-icon-button">
-            <md-icon class="white-icon">settings</md-icon>
-          </md-button>
-        </md-list-item>
-        </md-list>
-      </md-toolbar>
-    <md-list>
-    <md-list-item>
-        <md-icon>whatshot</md-icon>
-        <span>News</span>
-
-        <md-list-expand>
-        <md-list>
-            <md-list-item class="md-inset">World</md-list-item>
-            <md-list-item class="md-inset">Americas</md-list-item>
-            <md-list-item class="md-inset">Europe</md-list-item>
-        </md-list>
-        </md-list-expand>
-    </md-list-item>
-
-    <md-list-item>
-        <md-icon>videogame_asset</md-icon>
-        <span>Games</span>
-
-        <md-list-expand>
-        <md-list>
-            <md-list-item class="md-inset">Console</md-list-item>
-            <md-list-item class="md-inset">PC</md-list-item>
-            <md-list-item class="md-inset">Phone</md-list-item>
-        </md-list>
-        </md-list-expand>
-    </md-list-item>
-
-    <md-list-item>
-        <md-icon>video_library</md-icon>
-        <span>Video</span>
-
-        <md-list-expand>
-        <md-list>
-            <md-list-item class="md-inset">Humor</md-list-item>
-            <md-list-item class="md-inset">Music</md-list-item>
-            <md-list-item class="md-inset">Movies</md-list-item>
-            <md-list-item class="md-inset">TV Shows</md-list-item>
-        </md-list>
-        </md-list-expand>
-    </md-list-item>
-    </md-list>
-  </div>
-  </md-sidenav>
-  </div>
+<div>
+  <v-app toolbar>
+    <v-navigation-drawer absolute persistent light :mini-variant.sync="mini" v-model="drawer" overflow v-if="['login', 'waiting'].indexOf($route.name) === -1">
+      <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="https://randomuser.me/api/portraits/men/10.jpg" />
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>John Leider</v-list-tile-title>
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon @click.native.stop="mini = !mini">
+                <v-icon>chevron_left</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+        <v-list-tile @click="">
+            <v-icon>dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title> Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile @click="logout">
+            <v-icon>exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title> Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar fixed class="primary">
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="['login', 'waiting'].indexOf($route.name) === -1"></v-toolbar-side-icon>
+      <router-link to="/" style="flex:2; text-decoration:none">
+        <v-toolbar-title class="brand-name">Eculum</v-toolbar-title>
+      </router-link>
+    </v-toolbar>
+    <main>
+      <v-container fluid>
+        <router-view>
+        </router-view>
+      </v-container>
+    </main>
+    <v-footer :absolute="true">
+      <span>&copy; Eculum {{ new Date().getFullYear() }}</span>
+    </v-footer>
+  </v-app>
+</div>
 </template>
 
 <script>
 
 export default {
-  name: 'nav',
   data () {
     return {
-      swipeable: true
+      drawer: true,
+      mini: false,
+      right: null
     }
   },
   methods: {
@@ -115,24 +91,8 @@ export default {
   text-transform: uppercase;
   font-size: 1.6em !important;
   text-align: center;
+  color:#fff;
 }
-
-@media screen and (min-width: 822px) {
-  .c-side-nav > .md-sidenav-content {
-    pointer-events: auto !important;
-    transform: translate3d(0, 0, 0) !important;
-    box-shadow: 1px 1px 1px grey;
-  }
-
-  .md-sidenav-backdrop {
-    z-index: 1 !important;
-  }
-
-  .menu-icon {
-    visibility: hidden;
-  }
-}
-
 
 </style>
 <style scoped>

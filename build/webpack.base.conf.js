@@ -70,6 +70,11 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
+    ],
+    loaders : [ 
+      { test: /\.styl$/, 
+        loader: 'style-loader!css-loader!stylus-loader' 
+      } 
     ]
   }
 }

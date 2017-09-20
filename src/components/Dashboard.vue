@@ -2,7 +2,7 @@
 	<div>
 		<p> App Dash </p>
 	    <center>
-      		<md-spinner :md-size="150" :md-stroke="1" md-indeterminate  style="margin-top:150px"></md-spinner>
+      		<v-progress-circular indeterminate class="primary--text" v-bind:size="90" v-bind:width="1"></v-progress-circular>
     	</center>
 	</div>
 </template>
