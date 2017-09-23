@@ -16,9 +16,6 @@ export default {
 </script>
 
 <style>
-#app {
-  /*text-align: center;*/
-}
 
 @media screen and (min-width: 822px) {
   .adjust-margin {
@@ -26,8 +23,14 @@ export default {
   }
 }
 
+
+html {
+  overflow: auto !important
+}
+
 </style>
 
 <style lang="stylus">
+  $color-pack = false
   @import '../stylus/main'
 </style>

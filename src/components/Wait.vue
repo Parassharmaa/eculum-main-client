@@ -18,7 +18,6 @@ export default {
     }
     jwtAPI.getToken(loginHash)
     .then(response => {
-      console.log(response.data)
       this.$store.dispatch('login', response.data.token).then(res => {
         this.$router.push('/app')
       })

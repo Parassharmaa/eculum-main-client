@@ -1,0 +1,116 @@
+<template>
+	<div>
+		<v-toolbar flat class="lime">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img v-bind:src="user.twitter.profile_image">
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>{{ user.twitter.name }}</v-list-tile-title>
+            </v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon @click.native.stop="toggleMini">
+                <v-icon>chevron_left</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+      <v-list class="pt-2" two-line>
+        <v-subheader>Insights</v-subheader>
+        <v-list-tile v-bind:class="{lime: $route.path === '/app'}" @click="navigate_to('insights_overview')">
+          <v-list-tile-action>
+            <v-icon>dashboard</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="side-text">Overview</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-list-tile v-bind:class="{lime: $route.path === '/app/followers'}" @click="navigate_to('insights_followers')">
+          <v-list-tile-action>
+            <v-icon>people</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="side-text">Followers</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <!-- <v-divider></v-divider> -->
+        <v-list-tile v-bind:class="{lime: $route.path === '/app/friends'}" @click="navigate_to('insights_friends')">
+          <v-list-tile-action>
+            <v-icon>wc</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="side-text">Friends</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider></v-divider>
+        <v-list-tile @click="logout">
+          <v-list-tile-action>
+            <v-icon>exit_to_app</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="side-text">Logout</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+	</div>
+</template>
+
+<script>
+
+import User from '@/api/User'
+
+export default {
+  name: 'sidepanel',
+  props: [ 'mini' ],
+  data () {
+    return {
+      user: this.$store.getters.user
+    }
+  },
+  beforeCreate () {
+    User.getUser()
+    .then(response => {
+      this.$store.dispatch('load_user', response.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  },
+  methods: {
+    toggleMini () {
+      let nMini = !this.mini
+      this.$emit('toggleMini', nMini)
+    },
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
+    },
+    navigate_to (loc) {
+      this.$router.push({ name: loc })
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+.side-text {
+  font-size: 13.9px;
+}
+
+.text-hd {
+  font-size: 15px;
+}
+
+router-link {
+  text-decoration: none !important;
+}
+
+.active {
+  background: green
+}
+</style>
+
