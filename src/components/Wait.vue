@@ -23,7 +23,7 @@ export default {
       })
     })
     .catch(error => {
-      alert(error.response.data.message)
+      this.$store.dispatch('show_error', error.response.data.message)
       this.$router.push('/')
     })
   }

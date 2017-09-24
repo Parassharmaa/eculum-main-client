@@ -1,7 +1,14 @@
 <template>
 <div>
   <v-app toolbar>
-    <v-navigation-drawer absolute persistent light :mini-variant.sync="mini" v-model="drawer" overflow v-if="['login', 'waiting'].indexOf($route.name) === -1">
+    <v-snackbar
+      :timeout="10000"
+      :top="true"
+      v-model="$store.state.err.show">
+      {{ $store.getters.errorInfo }}
+      <v-btn flat class="lime--text" @click.native="$store.state.err.show = false">Close</v-btn>
+    </v-snackbar>
+    <v-navigation-drawer persistent fixed :mini-variant.sync="mini" v-model="drawer" v-if="['login', 'waiting'].indexOf($route.name) === -1">
       <side-panel :mini='mini' @toggleMini="toggleMini"></side-panel>
     </v-navigation-drawer>
     <v-toolbar fixed class="primary">
@@ -29,7 +36,7 @@
         </router-view>
       </v-container>
     </main>
-    <v-footer :absolute="true">
+    <v-footer fixed>
       <span>&copy; Eculum {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -80,6 +87,10 @@ export default {
 .side-nav-header {
   background: #00BCD4;
   color:#fff;
+}
+
+main {
+  background: #efefef;
 }
 
 .white-icon {

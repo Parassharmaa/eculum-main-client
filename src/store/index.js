@@ -11,6 +11,7 @@ const STOP_LOADING = 'STOP_LOADING'
 const LOAD_INSIGHTS_OVERVIEW = 'LOAD_INSIGHTS_OVERVIEW'
 const LOAD_INSIGHTS_FOLLOWERS = 'LOAD_INSIGHTS_FOLLOWERS'
 const LOAD_INSIGHTS_FRIENDS = 'LOAD_INSIGHTS_FRIENDS'
+const SHOW_ERROR = 'SHOW_ERROR'
 
 export default new Vuex.Store({
   state: {
@@ -25,6 +26,10 @@ export default new Vuex.Store({
       overview: {},
       followers: {},
       friends: {}
+    },
+    err: {
+      show: false,
+      info: 'Hello World'
     },
     pending: false
   },
@@ -55,6 +60,10 @@ export default new Vuex.Store({
     },
     [LOAD_INSIGHTS_FRIENDS] (state, data) {
       Object.assign(state.insights.friends, data)
+    },
+    [SHOW_ERROR] (state, info) {
+      state.err.show = true
+      state.err.info = info
     }
   },
   actions: {
@@ -100,6 +109,11 @@ export default new Vuex.Store({
     }, data) {
       commit(LOAD_INSIGHTS_FRIENDS, data)
       commit(STOP_LOADING)
+    },
+    show_error ({
+      state, commit
+    }, info) {
+      commit(SHOW_ERROR, info)
     }
   },
 
@@ -121,6 +135,12 @@ export default new Vuex.Store({
     },
     pending: state => {
       return state.pending
+    },
+    errorShow: state => {
+      return state.err.show
+    },
+    errorInfo: state => {
+      return state.err.info
     }
   }
 })

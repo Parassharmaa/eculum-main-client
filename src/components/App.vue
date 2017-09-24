@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <nav-bar></nav-bar>
+    <layout></layout>
   </div>
 </template>
 
 <script>
 
-import NavBar from './NavBar.vue'
+import Layout from './Layout.vue'
 
 export default {
   name: 'app',
-  components: { NavBar }
+  components: { Layout },
+  data () {
+    return {
+      showError: this.$store.getters.errorShow
+    }
+  }
 }
 
 </script>
