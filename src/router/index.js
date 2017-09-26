@@ -5,6 +5,8 @@ import Login from '@/components/Login.vue'
 import InsightsOverview from '@/components/InsightsOverview.vue'
 import InsightsFriends from '@/components/InsightsFriends.vue'
 import InsightsFollowers from '@/components/InsightsFollowers.vue'
+import Register from '@/components/Register.vue'
+import CreateTweet from '@/components/CreateTweet.vue'
 
 Vue.use(Router)
 
@@ -23,6 +25,12 @@ const router = new Router({
       meta: {isLoggedIn: true}
     },
     {
+      path: '/register',
+      name: 'register',
+      component: Register,
+      meta: {isLoggedIn: true}
+    },
+    {
       path: '/app',
       name: 'insights_overview',
       component: InsightsOverview,
@@ -38,6 +46,12 @@ const router = new Router({
       path: '/app/friends',
       name: 'insights_friends',
       component: InsightsFriends,
+      meta: {validate: true}
+    },
+    {
+      path: '/app/tweet',
+      name: 'create_tweet',
+      component: CreateTweet,
       meta: {validate: true}
     },
     {

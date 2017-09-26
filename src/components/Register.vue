@@ -3,16 +3,8 @@
     <v-flex>
       <v-card class="login-card" elevation-10>
       	<center>
-        <a href="http://localhost/api/v1/auth/twitter" class="btn-url">
-          	<v-btn round primary dark class="twitter-color">
-          		<img class="btn-icon" src="../assets/Twitter_Social_Icon_Circle_Color.png">
-          		Login with Twitter
-          	</v-btn>
-        </a>
-      	<br><br>
-      	or
-      	<!-- <v-divider></v-divider> -->
-    <form v-on:keyup.enter="login">
+          <p>Last Step...</p>
+    <form v-on:keyup.enter="register">
     <v-text-field
       v-model="cred.email"
       label="E-mail"
@@ -22,13 +14,11 @@
       data-vv-name="email"
       required
     ></v-text-field>
-    <router-link to=''>
-      <p class="text-xs-right"> Forgot your password? </p>
-    </router-link>
     <v-text-field
       v-model="cred.password"
       label="Password"
       single-line
+      hint="At least 8 characters"
       :error-messages="errors.collect('password')"
       v-validate="'required'"
       type="password"
@@ -36,7 +26,7 @@
       required
       ></v-text-field>
 
-    <v-btn @click="login" primary>Login &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
+    <v-btn @click="register" primary>Register &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
   </form>
       </center>
       </v-card>
@@ -45,10 +35,10 @@
 </template>
 
 <script>
-import emailLoginAPI from '@/api/EmailLogin'
+import emailRegisterAPI from '@/api/EmailRegister'
 
 export default {
-  name: 'login',
+  name: 'register',
 
   $validates: true,
 
@@ -56,18 +46,26 @@ export default {
     return {
       cred: {
         email: '',
-        password: ''
+        password: '',
+        register_token: ''
       },
       loading: false
     }
   },
+  created () {
+    this.cred.register_token = this.$route.query.token
+    if (this.cred.register_token === undefined) {
+      this.$store.dispatch('show_error', 'Please Try Again Later')
+      this.$router.push('/')
+    }
+  },
   methods: {
-    login () {
+    register () {
       this.loading = true
       this.$validator.validateAll()
       .then(isValidated => {
         if (isValidated) {
-          emailLoginAPI.postCred(this.cred)
+          emailRegisterAPI.postCred(this.cred)
           .then(response => {
             if (response.status === 200) {
               this.$router.push(response.data.next)
@@ -81,6 +79,7 @@ export default {
             this.$validator.clean()
           })
           .catch(error => {
+            console.log(error)
             this.$store.dispatch('show_error', 'Unexpected Error')
             this.loading = false
             console.log(error)
@@ -104,6 +103,7 @@ export default {
 
 p {
     text-align: center;
+    font-size: 22px
 }
 
 .login-card {

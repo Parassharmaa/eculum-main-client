@@ -8,11 +8,11 @@
       {{ $store.getters.errorInfo }}
       <v-btn flat class="lime--text" @click.native="$store.state.err.show = false">Close</v-btn>
     </v-snackbar>
-    <v-navigation-drawer persistent fixed :mini-variant.sync="mini" v-model="drawer" v-if="['login', 'waiting'].indexOf($route.name) === -1">
+    <v-navigation-drawer persistent fixed :mini-variant.sync="mini" v-model="drawer" v-if="['login', 'waiting', 'register'].indexOf($route.name) === -1">
       <side-panel :mini='mini' @toggleMini="toggleMini"></side-panel>
     </v-navigation-drawer>
     <v-toolbar fixed class="primary">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="['login', 'waiting'].indexOf($route.name) === -1" style="color:#fff"></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="['login', 'waiting', 'register'].indexOf($route.name) === -1" style="color:#fff"></v-toolbar-side-icon>
       <router-link to="/" style="flex:1;text-decoration:none">
         <v-toolbar-title class="brand-name">Eculum</v-toolbar-title>
       </router-link>
