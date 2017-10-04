@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<v-toolbar flat class="lime">
-        <v-list class="pa-0">
+        <v-list class="pt-3">
           <v-list-tile avatar>
             <v-list-tile-avatar tile>
               <img v-bind:src="user.twitter.profile_image">
@@ -17,7 +17,7 @@
           </v-list-tile>
         </v-list>
       </v-toolbar>
-      <v-list class="pt-2" two-line>
+      <v-list class="pt-3" zero-line>
         <v-subheader>Insights</v-subheader>
         <v-list-tile v-bind:class="{lime: $route.path === '/app'}" @click="navigate_to('insights_overview')">
           <v-list-tile-action>

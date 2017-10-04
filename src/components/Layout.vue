@@ -36,9 +36,9 @@
         </router-view>
       </v-container>
     </main>
-    <v-footer fixed>
+  <!--   <v-footer fixed>
       <span>&copy; Eculum {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </div>
 </template>
