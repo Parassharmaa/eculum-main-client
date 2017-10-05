@@ -189,6 +189,7 @@ export default {
       })
     }, 1500),
     add_tag (tag) {
+      tag = tag.replace(' ', '')
       this.cred.tweet += ` #${tag}`
     },
     replace_tag (tag) {

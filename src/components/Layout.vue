@@ -16,7 +16,7 @@
       <router-link to="/" style="flex:1;text-decoration:none">
         <v-toolbar-title class="brand-name">Eculum</v-toolbar-title>
       </router-link>
-      <v-menu transition="slide-y-transition" bottom>
+      <v-menu transition="slide-x-transition" bottom>
         <v-btn icon slot="activator" dark>
           <v-icon>more_vert</v-icon>
         </v-btn>
