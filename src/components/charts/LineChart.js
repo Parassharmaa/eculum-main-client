@@ -1,7 +1,7 @@
 import { Line } from 'vue-chartjs'
 
 export default Line.extend({
-  props: ['labels', 'data', 'heading'],
+  props: ['labels', 'data', 'heading', 'label', 'yaxis', 'xaxis'],
   mounted () {
     this.renderChart(
       {
@@ -9,13 +9,13 @@ export default Line.extend({
         datasets: [{
           backgroundColor: 'rgba(54, 162, 235,0)',
           borderColor: 'rgb(54, 162, 235)',
-          label: this.heading[0],
+          label: this.label[0],
           data: this.data[0]
         },
         {
           backgroundColor: 'rgba(54, 162, 235,0)',
           borderColor: 'rgb(154, 162, 235)',
-          label: this.heading[1],
+          label: this.label[1],
           data: this.data[1]
         }]
       },
@@ -24,7 +24,7 @@ export default Line.extend({
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: 'Network Growth'
+          text: this.heading
         },
         tooltips: {
           mode: 'index',
@@ -39,14 +39,14 @@ export default Line.extend({
             display: true,
             scaleLabel: {
               display: true,
-              labelString: 'Days'
+              labelString: this.xaxis
             }
           }],
           yAxes: [{
             display: true,
             scaleLabel: {
               display: true,
-              labelString: '%'
+              labelString: this.yaxis
             },
             ticks: {
               // forces step size to be 5 units

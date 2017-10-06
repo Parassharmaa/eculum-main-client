@@ -7,6 +7,15 @@
       <v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
     </center>
     <div v-if="!$store.getters.pending">
+    <div v-if='data.growth.data[0].length==0 || data.pgrowth.data[0].length==0'>
+    <v-alert
+      class="primary"
+      :value="true"
+      transition="scale-transition">
+      Not enough data to graph. Please, check back later!
+    </v-alert>
+    <br>
+  </div>
     <v-card class='pa-2'>
     <v-layout row wrap>
       <v-flex xs12 sm12 md12 xl12 style="text-align:center">
@@ -15,7 +24,7 @@
           <b>{{data.followers.toLocaleString()}}</b>
         </v-chip>
         <v-chip label outline class="count-m primary">
-          Friends <br>
+          Following <br>
           <b>{{data.friends.toLocaleString()}}</b>
         </v-chip>
         <v-chip label outline class="count-m primary">
@@ -27,19 +36,34 @@
           <b>{{data.likes.toLocaleString() }}</b>
         </v-chip>
         <v-chip label outline class="count-m primary">
-          Followers <br>
+          New Followers <br>
           <b>{{ data.avg_friend_growth }}%</b>
         </v-chip>
         <v-chip label outline class="count-m primary">
-          Friends <br>
+          New Following <br>
           <b>{{ data.avg_friend_growth }}%</b> 
         </v-chip>
       </v-flex>
       <v-flex xs12 sm12 md6 xl6 style="text-align:center">
-          <line-chart :data="data.pgrowth.data" :labels="data.pgrowth.labels" :heading="data.pgrowth.heading"></line-chart>
+          <line-chart 
+            :data="data.pgrowth.data" 
+            :labels="data.pgrowth.labels" 
+            :label='data.pgrowth.label' 
+            :heading="data.pgrowth.heading"
+            :yaxis="'%'"
+            :xaxis="'Days'">
+          </line-chart>
       </v-flex>
       <v-flex xs12 sm12 md6 xl6 style="text-align:center">
-        <line-chart :data="data.growth.data" :labels="data.growth.labels" :heading="data.growth.heading"></line-chart>
+        <line-chart 
+          :data="data.growth.data" 
+          :labels="data.growth.labels" 
+          :label='data.growth.label' 
+          :heading="data.growth.heading"
+          :yaxis="'Count'"
+          :xaxis="'Days'">
+        </line-chart>
+
       </v-flex>
     </v-layout>
   </v-card>
@@ -57,15 +81,20 @@ export default {
     return {
       test: this.$store.getters.insights_overview,
       data: {
+        blank_data: true,
         pgrowth: {
+          heading: 'Network Growth Percent',
           data: [[12, 19, 3, 5, 2, 3], [-2, 9, 13, 15, 12, 7]],
           labels: ['29 sept', '30 sept', '1 oct', '2 oct', '3oct', '4oct'],
-          heading: ['followers growth', 'friends growth']
+          label: ['followers growth', 'friends growth']
         },
         growth: {
+          heading: 'Network Dynamics',
+          // data: [[], []],
           data: [[200, 205, 220, 223, 290, 301], [400, 400, 400, 404, 404, 410]],
+          // labels: [],
           labels: ['29 sept', '30 sept', '1 oct', '2 oct', '3oct', '4oct'],
-          heading: ['followers count', 'friends count']
+          label: ['followers count', 'friends count']
         },
         followers: 237,
         friends: 201,
