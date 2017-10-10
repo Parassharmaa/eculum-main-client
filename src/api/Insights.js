@@ -5,7 +5,7 @@ export default {
   overview () {
     return axios({
       method: 'get',
-      url: `${api.prod_url}insights`,
+      url: `${api.url}twitter/insights`,
       headers: {'Authorization': localStorage.getItem('eclmtoken')}
     })
   },

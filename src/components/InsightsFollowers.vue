@@ -22,7 +22,14 @@
       class="elevation-1"
       >
         <template slot="items" scope="props">
-          <td class="body-2">{{ props.item.name }}</td>
+          <td class="text-xs-center">
+            <v-avatar>
+              <img v-bind:src="props.item.profile_image">
+            </v-avatar>
+          </td>
+          <td class="text-xs-center">
+              {{ props.item.name }}
+          </td>
           <td  class="text-xs-right">{{ props.item.username }}</td>
           <td  class="text-xs-center">{{ props.item.bio }}</td>
           <td  class="text-xs-right">{{ props.item.followers }}</td>
@@ -33,7 +40,12 @@
               {{ props.item.interests }}
             </v-chip>
           </td>
-          <td  class="text-xs-right"><v-btn small round outline class="blue blue--text">Follow</v-btn></td>
+          <td  class="text-xs-right">
+            <v-btn small icon class="blue--text">
+            <v-icon>
+              info
+            </v-icon>
+          </v-btn></td>
         </template>
       </v-data-table>
     <div class="text-xs-center pt-2">
@@ -56,17 +68,19 @@ export default {
       pagination: {},
       selected: [],
       headers: [
+        { text: '', value: '', sortable: false },
         { text: 'Name', align: 'left', value: 'name' },
         { text: 'Username', value: 'username' },
         { text: 'Bio', value: 'bio', sortable: false, align: 'center' },
         { text: 'Followers', value: 'followers' },
         { text: 'Following', value: 'following' },
-        { text: 'Interests', value: 'interests', align: 'center' },
-        { text: '', value: '' }
+        { text: 'Interest', value: 'interests', align: 'center' },
+        { text: '', value: '', sortable: false }
       ],
       items: [
         {
           value: false,
+          profile_image: 'https://pbs.twimg.com/profile_images/573372936498765826/okwO7z-Y_normal.png',
           name: 'Qwert',
           username: 'qwerty',
           bio: 'hello world \n jdkjlsdjl c \n jdskjdl jdsjsk jcksjkcsjk',
@@ -76,45 +90,40 @@ export default {
         },
         {
           value: false,
+          profile_image: 'https://pbs.twimg.com/profile_images/573372936498765826/okwO7z-Y_normal.png',
           name: 'Qwert',
           username: 'qwerty',
-          bio: 'hello world',
+          bio: 'hello world \n jdkjlsdjl c \n jdskjdl jdsjsk jcksjkcsjk',
           followers: 24,
           following: 4.0,
           interests: 'Technology'
         },
         {
           value: false,
+          profile_image: 'https://pbs.twimg.com/profile_images/573372936498765826/okwO7z-Y_normal.png',
           name: 'Qwert',
           username: 'qwerty',
-          bio: 'hello world',
+          bio: 'hello world \n jdkjlsdjl c \n jdskjdl jdsjsk jcksjkcsjk',
           followers: 24,
           following: 4.0,
           interests: 'Technology'
         },
         {
           value: false,
+          profile_image: 'https://pbs.twimg.com/profile_images/573372936498765826/okwO7z-Y_normal.png',
           name: 'Qwert',
           username: 'qwerty',
-          bio: 'hello world',
-          followers: 24,
-          following: 4.0,
-          interests: 'Education'
-        },
-        {
-          value: false,
-          name: 'Qwert',
-          username: 'qwerty',
-          bio: 'hello world',
+          bio: 'hello world \n jdkjlsdjl c \n jdskjdl jdsjsk jcksjkcsjk',
           followers: 24,
           following: 4.0,
           interests: 'Technology'
         },
         {
           value: false,
+          profile_image: 'https://pbs.twimg.com/profile_images/573372936498765826/okwO7z-Y_normal.png',
           name: 'Qwert',
           username: 'qwerty',
-          bio: 'hello world',
+          bio: 'hello world \n jdkjlsdjl c \n jdskjdl jdsjsk jcksjkcsjk',
           followers: 24,
           following: 4.0,
           interests: 'Technology'

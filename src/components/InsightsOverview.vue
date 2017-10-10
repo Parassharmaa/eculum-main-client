@@ -33,15 +33,15 @@
         </v-chip>
         <v-chip label outline class="count-m primary">
           Likes <br>
-          <b>{{data.likes.toLocaleString() }}</b>
+          <b>{{ data.likes.toLocaleString() }}</b>
         </v-chip>
         <v-chip label outline class="count-m primary">
-          New Followers <br>
-          <b>{{ data.avg_friend_growth }}%</b>
+          New Followers Rate <br>
+          <b>{{ data.avg_followers_growth }}%</b>
         </v-chip>
         <v-chip label outline class="count-m primary">
-          New Following <br>
-          <b>{{ data.avg_friend_growth }}%</b> 
+          New Following Rate <br>
+          <b>{{ data.avg_friends_growth }}%</b> 
         </v-chip>
       </v-flex>
       <v-flex xs12 sm12 md6 xl6 style="text-align:center">
@@ -79,30 +79,7 @@ export default {
   name: 'insights_overview',
   data () {
     return {
-      test: this.$store.getters.insights_overview,
-      data: {
-        blank_data: true,
-        pgrowth: {
-          heading: 'Network Growth Percent',
-          data: [[12, 19, 3, 5, 2, 3], [-2, 9, 13, 15, 12, 7]],
-          labels: ['29 sept', '30 sept', '1 oct', '2 oct', '3oct', '4oct'],
-          label: ['followers growth', 'friends growth']
-        },
-        growth: {
-          heading: 'Network Dynamics',
-          // data: [[], []],
-          data: [[200, 205, 220, 223, 290, 301], [400, 400, 400, 404, 404, 410]],
-          // labels: [],
-          labels: ['29 sept', '30 sept', '1 oct', '2 oct', '3oct', '4oct'],
-          label: ['followers count', 'friends count']
-        },
-        followers: 237,
-        friends: 201,
-        tweets: 555,
-        likes: 2123,
-        avg_follower_growth: 3.3,
-        avg_friend_growth: 0.2
-      }
+      data: this.$store.getters.insights_overview
     }
   },
   components: { LineChart },
@@ -110,6 +87,7 @@ export default {
     this.$store.state.pending = true
     Insights.overview()
     .then(response => {
+      console.log(this.data)
       this.$store.dispatch('load_insights_overview', response.data.data)
     })
     .catch(error => {

@@ -10,8 +10,8 @@
               <v-list-tile-title>{{ user.twitter.name }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click.native.stop="toggleMini">
-                <v-icon>chevron_left</v-icon>
+              <v-btn icon @click.native.stop="">
+                <v-icon>settings</v-icon>
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>
