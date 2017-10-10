@@ -8,32 +8,42 @@
     </center>
     <div v-if="!$store.getters.pending">
       <v-card :height="'300px'" class="pa-2">
-        <pie-chart></pie-chart>
+        <pie-chart 
+          :heading="heading" 
+          :data="data.interest.data"
+          :label="data.interest.label"
+        ></pie-chart>
       </v-card>
       <br>
       <v-divider></v-divider>
       <br>
       <v-data-table
       v-bind:headers="headers"
-      v-bind:items="items"
+      v-bind:items="data.people"
       v-bind:search="search"
       v-bind:pagination.sync="pagination"
       hide-actions
+      :expand='true'
       class="elevation-1"
       >
         <template slot="items" scope="props">
-          <td class="body-2">{{ props.item.name }}</td>
-          <td  class="text-xs-right">{{ props.item.username }}</td>
-          <td  class="text-xs-center">{{ props.item.bio }}</td>
-          <td  class="text-xs-right">{{ props.item.followers }}</td>
-          <td  class="text-xs-right">{{ props.item.following }}</td>
-          <td  class="text-xs-left">
-            <v-chip>
-              <v-avatar class="primary">{{ props.item.interests[0] }}</v-avatar>
-              {{ props.item.interests }}
-            </v-chip>
-          </td>
-          <td  class="text-xs-right"><v-btn small round outline class="red red--text">Unfollow</v-btn></td>
+            <td class="text-xs-left">
+              <v-avatar tile class="border-img">
+                <img v-bind:src="props.item.profile_image">
+              </v-avatar>
+            </td>
+            <td class="text-xs-left">
+                {{ props.item.name }}
+            </td>
+            <td  class="text-xs-left">@{{ props.item.username }}</td>
+            <td  class="text-xs-center">
+              <v-chip>
+                <v-avatar class="primary">{{ props.item.interests[0] }}</v-avatar>
+                {{ props.item.interests }}
+              </v-chip>
+            </td>
+            <td  class="text-xs-right">{{ props.item.followers }}</td>
+            <td  class="text-xs-right">{{ props.item.following }}</td>
         </template>
       </v-data-table>
     <div class="text-xs-center pt-2">
@@ -51,80 +61,25 @@ export default {
   name: 'insights_overview',
   data () {
     return {
-      test: this.$store.getters.insights_followers,
       search: '',
       pagination: {},
       selected: [],
       headers: [
+        { text: '', value: '', sortable: false },
         { text: 'Name', align: 'left', value: 'name' },
-        { text: 'Username', value: 'username' },
-        { text: 'Bio', value: 'bio', sortable: false, align: 'center' },
+        { text: 'Username', value: 'username', align: 'left' },
+        { text: 'Interest', value: 'interests', align: 'center' },
+        // { text: 'Bio', value: 'bio', sortable: false, align: 'center', expandable: true },
         { text: 'Followers', value: 'followers' },
-        { text: 'Following', value: 'following' },
-        { text: 'Interests', value: 'interests', align: 'center' },
-        { text: '', value: '' }
+        { text: 'Following', value: 'following' }
       ],
-      items: [
-        {
-          value: false,
-          name: 'Qwert',
-          username: 'qwerty',
-          bio: 'hello world \n jdkjlsdjl c \n jdskjdl jdsjsk jcksjkcsjk',
-          followers: 24,
-          following: 4.0,
-          interests: 'Technology'
-        },
-        {
-          value: false,
-          name: 'Qwert',
-          username: 'qwerty',
-          bio: 'hello world',
-          followers: 24,
-          following: 4.0,
-          interests: 'Technology'
-        },
-        {
-          value: false,
-          name: 'Qwert',
-          username: 'qwerty',
-          bio: 'hello world',
-          followers: 24,
-          following: 4.0,
-          interests: 'Technology'
-        },
-        {
-          value: false,
-          name: 'Qwert',
-          username: 'qwerty',
-          bio: 'hello world',
-          followers: 24,
-          following: 4.0,
-          interests: 'Education'
-        },
-        {
-          value: false,
-          name: 'Qwert',
-          username: 'qwerty',
-          bio: 'hello world',
-          followers: 24,
-          following: 4.0,
-          interests: 'Technology'
-        },
-        {
-          value: false,
-          name: 'Qwert',
-          username: 'qwerty',
-          bio: 'hello world',
-          followers: 24,
-          following: 4.0,
-          interests: 'Technology'
-        }
-      ]
+      data: this.$store.getters.insights_friends,
+      heading: 'Following\'s Interest %'
     }
   },
   computed: {
     pages () {
-      return this.pagination.rowsPerPage ? Math.ceil(this.items.length / this.pagination.rowsPerPage) : 0
+      return this.pagination.rowsPerPage ? Math.ceil(this.data.people.length / this.pagination.rowsPerPage) : 0
     }
   },
   components: { PieChart },
@@ -144,6 +99,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.border-img {
+  margin: 8px auto;
+}
 
 </style>
 

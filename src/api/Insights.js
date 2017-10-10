@@ -12,14 +12,14 @@ export default {
   followers () {
     return axios({
       method: 'get',
-      url: `${api.prod_url}insights/followers`,
+      url: `${api.url}twitter/insights/followers`,
       headers: {'Authorization': localStorage.getItem('eclmtoken')}
     })
   },
   friends () {
     return axios({
       method: 'get',
-      url: `${api.prod_url}insights/friends`,
+      url: `${api.url}twitter/insights/friends`,
       headers: {'Authorization': localStorage.getItem('eclmtoken')}
     })
   }
