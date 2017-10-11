@@ -10,7 +10,7 @@
               <v-list-tile-title>{{ user.twitter.name }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click.native.stop="">
+              <v-btn icon @click.native.stop="navigate_to('settings')">
                 <v-icon>settings</v-icon>
               </v-btn>
             </v-list-tile-action>
