@@ -3,7 +3,7 @@
     <v-flex>
       <v-card class="login-card" elevation-10>
       	<center>
-        <a href="https://api.eculum.com/v1/auth/twitter" class="btn-url">
+        <a href="https://eculum.com/api/v1/auth/twitter" class="btn-url">
           	<v-btn round primary dark class="twitter-color">
           		<img class="btn-icon" src="../assets/Twitter_Social_Icon_Circle_Color.png">
           		Login with Twitter
