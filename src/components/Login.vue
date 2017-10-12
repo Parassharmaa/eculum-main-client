@@ -22,9 +22,9 @@
       data-vv-name="email"
       required
     ></v-text-field>
-    <router-link to=''>
+    <!-- <router-link to=''>
       <p class="text-xs-right"> Forgot your password? </p>
-    </router-link>
+    </router-link> -->
     <v-text-field
       v-model="cred.password"
       label="Password"

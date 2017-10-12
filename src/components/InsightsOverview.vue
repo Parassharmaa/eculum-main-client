@@ -7,7 +7,7 @@
       <v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
     </center>
     <div v-if="!$store.getters.pending">
-    <div v-if='data.growth.data[0].length==0 || data.pgrowth.data[0].length==0'>
+    <div v-if='data.growth.data[0].length==1 || data.pgrowth.data[0].length==1'>
     <v-alert
       class="primary"
       :value="true"
@@ -35,11 +35,11 @@
           Likes <br>
           <b>{{ data.likes.toLocaleString() }}</b>
         </v-chip>
-        <v-chip label outline class="count-m primary">
+        <v-chip label outline class="count-m primary" v-if="data.avg_followers_growth">
           New Followers Rate <br>
           <b>{{ data.avg_followers_growth }}%</b>
         </v-chip>
-        <v-chip label outline class="count-m primary">
+        <v-chip label outline class="count-m primary" v-if="data.avg_followers_growth">
           New Following Rate <br>
           <b>{{ data.avg_friends_growth }}%</b> 
         </v-chip>

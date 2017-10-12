@@ -7,6 +7,15 @@
       <v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
     </center>
     <div v-if="!$store.getters.pending">
+      <div v-if='data.interest.data.length===0'>
+    <v-alert
+      class="primary"
+      :value="true"
+      transition="scale-transition">
+      Not enough data to graph. Please, check back later!
+    </v-alert>
+    <br>
+  </div>
       <v-card :height="'300px'" class="pa-2">
         <pie-chart 
           :heading="heading" 
