@@ -74,7 +74,6 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.validate)) {
     if (!localStorage.getItem('eclmtoken')) {
-      console.log(to)
       next({
         path: '/'
       })

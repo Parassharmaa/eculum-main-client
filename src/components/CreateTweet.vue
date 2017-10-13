@@ -30,15 +30,17 @@
         </v-card>
         <br>
         <v-card>
-          <v-flex xs12 sm12 md12>
+            <v-flex xs12 sm12 md12>
             <div class='wrap'>
                 <v-chip class='hasht-click' @click='replace_tag(w)' v-for="w in words" :key='words.index'>
                   #{{w}}
                 </v-chip>
             </div>
+
             <div v-if="words.length === 0 && hashtags.length===0">
               <span> 
                 Suggested hashtags will appear here..
+                <v-progress-circular indeterminate class="primary--text" v-show="hashtag_load" v-bind:size="15" v-bind:width="5"></v-progress-circular>
               </span>
             </div>
             <v-divider></v-divider>
@@ -127,6 +129,7 @@ export default {
   name: 'create_tweet',
   data () {
     return {
+      hashtag_load: false,
       user: this.$store.getters.user,
       cred: {
         tweet: ''
@@ -173,21 +176,23 @@ export default {
     },
 
     analyse_tweet: _.debounce(function (e) {
-      console.log(e.target.value)
+      this.hashtag_load = true
       Predict.get_tags(e.target.value)
       .then(response => {
-        console.log(response)
         this.words = response.data.words
         this.hashtags = response.data.hashtags
+        this.hashtag_load = false
       })
       .catch(error => {
+        this.hashtag_load = false
         this.$store.dispatch('show_error', error.response.data.message)
       })
       .catch(error => {
+        this.hashtag_load = false
         console.log(error)
         this.$store.dispatch('show_error', 'Cannot get suggestions')
       })
-    }, 1500),
+    }, 1000),
     add_tag (tag) {
       tag = tag.replace(' ', '')
       this.cred.tweet += ` #${tag}`

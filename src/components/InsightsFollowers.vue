@@ -54,7 +54,7 @@
             <td  class="text-xs-right">{{ props.item.following }}</td>
         </template>
       </v-data-table>
-    <div class="text-xs-center pt-2">
+    <div class="text-xs-center pt-2" v-if='data.interest.data.length===0'>
       <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
     </div>  
     </div>

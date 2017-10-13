@@ -87,7 +87,6 @@ export default {
     this.$store.state.pending = true
     Insights.overview()
     .then(response => {
-      console.log(this.data)
       this.$store.dispatch('load_insights_overview', response.data.data)
     })
     .catch(error => {
