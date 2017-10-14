@@ -8,6 +8,8 @@ import InsightsFollowers from '@/components/InsightsFollowers.vue'
 import Register from '@/components/Register.vue'
 import CreateTweet from '@/components/CreateTweet.vue'
 import Settings from '@/components/Settings.vue'
+
+import store from '@/store/index.js'
 Vue.use(Router)
 
 const router = new Router({
@@ -71,6 +73,8 @@ const router = new Router({
   mode: 'history'
 })
 
+import Validate from '@/api/Validate'
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.validate)) {
     if (!localStorage.getItem('eclmtoken')) {
@@ -79,6 +83,13 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       next()
+      Validate.valid()
+      .catch(() => {
+        store.dispatch('show_error', 'Authentication Error, Please Login Again')
+        next({
+          path: '/'
+        })
+      })
     }
   } else {
     next()
@@ -88,8 +99,16 @@ router.beforeEach((to, from, next) => {
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.isLoggedIn)) {
     if (localStorage.getItem('eclmtoken')) {
-      next({
-        path: '/app'
+      Validate.valid()
+      .then(() => {
+        next({
+          path: '/app'
+        })
+      })
+      .catch(() => {
+        store.dispatch('show_error', 'Authentication Error, Please Login Again')
+        localStorage.removeItem('eclmtoken')
+        next()
       })
     } else {
       next()

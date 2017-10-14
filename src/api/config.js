@@ -1,5 +1,5 @@
 var api = {
-  url: 'https://eculum.com/api/v1/'
+  url: 'https://api.eculum.com/v1/'
 }
 
 export default api

@@ -12,6 +12,7 @@ const LOAD_INSIGHTS_OVERVIEW = 'LOAD_INSIGHTS_OVERVIEW'
 const LOAD_INSIGHTS_FOLLOWERS = 'LOAD_INSIGHTS_FOLLOWERS'
 const LOAD_INSIGHTS_FRIENDS = 'LOAD_INSIGHTS_FRIENDS'
 const SHOW_ERROR = 'SHOW_ERROR'
+const TWEET_MSG = 'TWEET_MSG'
 
 export default new Vuex.Store({
   state: {
@@ -31,7 +32,8 @@ export default new Vuex.Store({
       show: false,
       info: 'Hello World'
     },
-    pending: false
+    pending: false,
+    tweet_msg: ''
   },
   mutations: {
     [LOGIN] (state) {
@@ -64,6 +66,9 @@ export default new Vuex.Store({
     [SHOW_ERROR] (state, info) {
       state.err.show = true
       state.err.info = info
+    },
+    [TWEET_MSG] (state, msg) {
+      state.tweet_msg = msg
     }
   },
   actions: {
@@ -114,6 +119,11 @@ export default new Vuex.Store({
       state, commit
     }, info) {
       commit(SHOW_ERROR, info)
+    },
+    set_tweet ({
+      state, commit
+    }, msg) {
+      commit(TWEET_MSG, msg)
     }
   },
 
@@ -141,6 +151,9 @@ export default new Vuex.Store({
     },
     errorInfo: state => {
       return state.err.info
+    },
+    tweetMsg: state => {
+      return state.tweet_msg
     }
   }
 })

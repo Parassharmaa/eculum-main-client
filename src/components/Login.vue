@@ -3,7 +3,7 @@
     <v-flex>
       <v-card class="login-card" elevation-10>
       	<center>
-        <a href="https://eculum.com/api/v1/auth/twitter" class="btn-url">
+        <a href="https://api.eculum.com/v1/auth/twitter" class="btn-url">
           	<v-btn round primary dark class="twitter-color">
           		<img class="btn-icon" src="../assets/Twitter_Social_Icon_Circle_Color.png">
           		Login with Twitter
@@ -22,9 +22,6 @@
       data-vv-name="email"
       required
     ></v-text-field>
-    <!-- <router-link to=''>
-      <p class="text-xs-right"> Forgot your password? </p>
-    </router-link> -->
     <v-text-field
       v-model="cred.password"
       label="Password"
@@ -35,7 +32,9 @@
       data-vv-name="password"
       required
       ></v-text-field>
-
+      <!-- <router-link to=''>
+      <p class="text-xs-right"> Forgot your password? </p>
+    </router-link> -->
     <v-btn @click="login" primary>Login &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
   </form>
       </center>
@@ -75,8 +74,6 @@ export default {
           })
           .catch(error => {
             this.$store.dispatch('show_error', error.response.data.message)
-            this.cred.email = ''
-            this.cred.password = ''
             this.loading = false
             this.$validator.clean()
           })

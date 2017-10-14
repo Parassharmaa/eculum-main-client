@@ -132,7 +132,7 @@ export default {
       hashtag_load: false,
       user: this.$store.getters.user,
       cred: {
-        tweet: ''
+        tweet: this.$store.getters.tweetMsg
       },
       words: [],
       hashtags: [],

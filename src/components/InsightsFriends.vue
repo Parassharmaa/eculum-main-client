@@ -25,6 +25,10 @@
       </v-card>
       <br>
       <v-divider></v-divider>
+      <div class="text-lg-right" @click="tweet_friends_insight" v-if='data.interest.data.length!==0'>
+        <v-btn outline round small class="blue text-color-blue">
+          &nbsp;Tweet the insights!</v-btn>
+      </div>
       <br>
       <v-data-table
       v-bind:headers="headers"
@@ -47,7 +51,7 @@
             <td  class="text-xs-left">@{{ props.item.username }}</td>
             <td  class="text-xs-center">
               <v-chip>
-                <v-avatar class="primary">{{ props.item.interests[0] }}</v-avatar>
+                <v-avatar class="primary">{{ props.item.interests[0] | capitalize }}</v-avatar>
                 {{ props.item.interests }}
               </v-chip>
             </td>
@@ -101,6 +105,22 @@ export default {
     .catch(error => {
       console.log(error)
     })
+  },
+  methods: {
+    tweet_friends_insight () {
+      let pc = this.data.interest.data[0]
+      let lb = this.data.interest.label[0].replace(' ', ' #').replace('', '#')
+      let tweetTemp = `My ${pc}% of new twitter friends are interested in ${lb}, Checked via @eculum_ai`
+      this.$store.dispatch('set_tweet', tweetTemp)
+      this.$router.push({ name: 'create_tweet' })
+    }
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
   }
 }
 </script>

@@ -25,7 +25,10 @@
       </v-card>
       <br>
       <v-divider></v-divider>
-      <br>
+      <div class="text-lg-right" @click="tweet_followers_insight" v-if='data.interest.data.length!==0'>
+        <v-btn outline round small class="blue text-color-blue">
+          &nbsp;Tweet the insights!</v-btn>
+      </div>
       <v-data-table
       v-bind:headers="headers"
       v-bind:items="data.people"
@@ -44,9 +47,9 @@
                 {{ props.item.name }}
             </td>
             <td  class="text-xs-left">@{{ props.item.username }}</td>
-            <td  class="text-xs-center">
+            <td  class="text-xs-left">
               <v-chip>
-                <v-avatar class="primary">{{ props.item.interests[0] }}</v-avatar>
+                <v-avatar class="primary">{{ props.item.interests[0] | capitalize }}</v-avatar>
                 {{ props.item.interests }}
               </v-chip>
             </td>
@@ -54,7 +57,7 @@
             <td  class="text-xs-right">{{ props.item.following }}</td>
         </template>
       </v-data-table>
-    <div class="text-xs-center pt-2" v-if='data.interest.data.length===0'>
+    <div class="text-xs-center pt-2" v-if='data.interest.data.length!==0'>
       <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
     </div>  
     </div>
@@ -76,7 +79,7 @@ export default {
         { text: '', value: '', sortable: false },
         { text: 'Name', align: 'left', value: 'name' },
         { text: 'Username', value: 'username', align: 'left' },
-        { text: 'Interest', value: 'interests', align: 'center' },
+        { text: 'Interest', value: 'interests', align: 'left' },
         // { text: 'Bio', value: 'bio', sortable: false, align: 'center', expandable: true },
         { text: 'Followers', value: 'followers' },
         { text: 'Following', value: 'following' }
@@ -100,6 +103,22 @@ export default {
     .catch(error => {
       console.log(error)
     })
+  },
+  methods: {
+    tweet_followers_insight () {
+      let pc = this.data.interest.data[0]
+      let lb = this.data.interest.label[0].replace(' ', ' #').replace('', '#')
+      let tweetTemp = `My ${pc}% of new followers are interested in ${lb}, Checked via @eculum_ai`
+      this.$store.dispatch('set_tweet', tweetTemp)
+      this.$router.push({ name: 'create_tweet' })
+    }
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
   }
 }
 </script>

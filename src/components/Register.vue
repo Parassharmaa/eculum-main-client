@@ -1,7 +1,7 @@
 <template>
 	<v-layout row>
     <v-flex>
-      <v-card class="login-card" elevation-10>
+      <v-card class="login-card" elevation-10 transition="slide-x-transition">
       	<center>
           <p>Last Step...</p>
     <form v-on:keyup.enter="register">
@@ -25,7 +25,10 @@
       data-vv-name="password"
       required
       ></v-text-field>
-
+      <div class="text-xs-center caption"> By clicking on Register you accept our <br> 
+        <a href=""> Terms & Condition  </a>
+      </div>
+      <br>
     <v-btn @click="register" primary>Register &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
   </form>
       </center>
@@ -73,8 +76,6 @@ export default {
           })
           .catch(error => {
             this.$store.dispatch('show_error', error.response.data.message)
-            this.cred.email = ''
-            this.cred.password = ''
             this.loading = false
             this.$validator.clean()
           })
