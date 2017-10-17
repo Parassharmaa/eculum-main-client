@@ -7,15 +7,6 @@
       <v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
     </center>
     <div v-if="!$store.getters.pending">
-    <div v-if='data.growth.data[0].length==1 || data.pgrowth.data[0].length==1'>
-    <v-alert
-      class="primary"
-      :value="true"
-      transition="scale-transition">
-      Not enough data to graph. Please, check back later!
-    </v-alert>
-    <br>
-  </div>
     <v-card class='pa-2'>
     <v-layout row wrap>
       <v-flex xs12 sm12 md12 xl12 style="text-align:center">
@@ -45,14 +36,26 @@
         </v-chip>
       </v-flex>
       <v-flex xs12 sm12 md6 xl6 style="text-align:center">
-          <line-chart 
-            :data="data.pgrowth.data" 
-            :labels="data.pgrowth.labels" 
-            :label='data.pgrowth.label' 
-            :heading="data.pgrowth.heading"
-            :yaxis="'%'"
-            :xaxis="'Days'">
-          </line-chart>
+          <doughnut-chart
+          :heading="'Recent tweets activity'" 
+          :data="data.user_interest.data"
+          :label="data.user_interest.label"
+          v-if='data.user_interest.data.length!==0'
+        ></doughnut-chart>
+        <div v-if='data.user_interest.data.length===0'>
+          <v-alert
+            class='grey vert-center'
+            :value="true"
+            transition="scale-transition">
+            It looks like that you have not tweeted anything yet,
+            <router-link tag='span' :to="{ name: 'create_tweet'}">
+              <v-btn round small class="primary">
+                  Tweet!
+              </v-btn>
+              </router-link>
+          </v-alert>
+          <br>
+        </div>
       </v-flex>
       <v-flex xs12 sm12 md6 xl6 style="text-align:center">
         <line-chart 
@@ -74,6 +77,7 @@
 <script>
 import Insights from '@/api/Insights'
 import LineChart from './charts/LineChart.js'
+import DoughnutChart from './charts/DnutChart.js'
 
 export default {
   name: 'insights_overview',
@@ -82,7 +86,7 @@ export default {
       data: this.$store.getters.insights_overview
     }
   },
-  components: { LineChart },
+  components: { LineChart, DoughnutChart },
   beforeCreate () {
     this.$store.state.pending = true
     Insights.overview()
@@ -100,6 +104,11 @@ export default {
 <style scoped>
   .count-m {
     padding:8px;
+  }
+
+  .vert-center {
+    margin-top:80px;
+    margin-bottom:80px;
   }
 </style>
 
