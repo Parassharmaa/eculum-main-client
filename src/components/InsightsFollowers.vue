@@ -2,7 +2,6 @@
 	<div>
 		<div class="subheading"> Followers </div>
     <v-divider></v-divider>
-    <br>
     <center>
   		<v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
     </center>
@@ -16,7 +15,33 @@
     </v-alert>
     <br>
   </div>
-      <v-card :height="'300px'" class="pa-2">
+        <v-container>
+      <v-layout justify-space-between v-if='data.interest.data.length!==0'>
+        <v-flex xs6 sm12 md12>
+          <v-menu
+            transition="slide-y-transition"
+            bottom
+          >    
+            <v-btn flat small slot="activator">
+              <v-icon>filter_list</v-icon>
+              &nbsp;Filter by date
+            </v-btn>
+          <v-list>
+            <v-list-tile v-for="item in filter_dates" @click="">
+              <v-list-tile-title>{{ item }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+          </v-menu>
+           
+        </v-flex>
+        <v-flex >
+            <span></span>
+            <v-btn flat small @click="tweet_followers_insight">
+            <v-icon>share</v-icon>&nbsp;Share</v-btn>
+        </v-flex>
+      </v-layout>
+    </v-container>
+      <v-card :height="'350px'" class="pa-2">
         <pie-chart 
           :heading="heading" 
           :data="data.interest.data"
@@ -25,10 +50,6 @@
       </v-card>
       <br>
       <v-divider></v-divider>
-      <div class="text-lg-right" v-if='data.interest.data.length!==0'>
-        <v-btn outline round small @click="tweet_followers_insight" class="blue text-color-blue">
-          &nbsp;Tweet the insights!</v-btn>
-      </div>
       <v-data-table
       v-bind:headers="headers"
       v-bind:items="data.people"
