@@ -93,8 +93,8 @@ export default {
     .then(response => {
       this.$store.dispatch('load_insights_overview', response.data.data)
     })
-    .catch(error => {
-      console.log(error)
+    .catch(() => {
+      this.$store.dispatch('show_error', 'Network Error')
     })
   }
 }

@@ -84,11 +84,13 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
       Validate.valid()
-      .catch(() => {
-        store.dispatch('show_error', 'Authentication Error, Please Login Again')
-        next({
-          path: '/'
-        })
+      .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          store.dispatch('show_error', 'Authentication Error, Please Login Again')
+          next({
+            path: '/'
+          })
+        }
       })
     }
   } else {
@@ -105,10 +107,12 @@ router.beforeEach((to, from, next) => {
           path: '/app'
         })
       })
-      .catch(() => {
-        store.dispatch('show_error', 'Authentication Error, Please Login Again')
-        localStorage.removeItem('eclmtoken')
-        next()
+      .catch(err => {
+        if (err.response && err.response.status === 401) {
+          store.dispatch('show_error', 'Authentication Error, Please Login Again')
+          localStorage.removeItem('eclmtoken')
+          next()
+        }
       })
     } else {
       next()

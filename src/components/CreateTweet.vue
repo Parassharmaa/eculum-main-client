@@ -171,7 +171,7 @@ export default {
       .catch(error => {
         this.sending = false
         console.log(error)
-        this.$store.dispatch('show_error', 'Unexpected Error')
+        this.$store.dispatch('show_error', 'Network Error')
       })
     },
 

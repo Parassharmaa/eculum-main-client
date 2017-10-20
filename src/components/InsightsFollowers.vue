@@ -25,15 +25,14 @@
       </v-card>
       <br>
       <v-divider></v-divider>
-      <div class="text-lg-right" @click="tweet_followers_insight" v-if='data.interest.data.length!==0'>
-        <v-btn outline round small class="blue text-color-blue">
+      <div class="text-lg-right" v-if='data.interest.data.length!==0'>
+        <v-btn outline round small @click="tweet_followers_insight" class="blue text-color-blue">
           &nbsp;Tweet the insights!</v-btn>
       </div>
       <v-data-table
       v-bind:headers="headers"
       v-bind:items="data.people"
       v-bind:search="search"
-      v-bind:pagination.sync="pagination"
       hide-actions
       class="elevation-1"
       >
@@ -56,10 +55,7 @@
             <td  class="text-xs-right">{{ props.item.followers }}</td>
             <td  class="text-xs-right">{{ props.item.following }}</td>
         </template>
-      </v-data-table>
-    <div class="text-xs-center pt-2" v-if='data.interest.data.length!==0'>
-      <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
-    </div>  
+      </v-data-table> 
     </div>
 	</div>
 </template>
@@ -80,17 +76,11 @@ export default {
         { text: 'Name', align: 'left', value: 'name' },
         { text: 'Username', value: 'username', align: 'left' },
         { text: 'Interest', value: 'interests', align: 'left' },
-        // { text: 'Bio', value: 'bio', sortable: false, align: 'center', expandable: true },
         { text: 'Followers', value: 'followers' },
         { text: 'Following', value: 'following' }
       ],
       data: this.$store.getters.insights_followers,
       heading: 'Followers\'s Interest %'
-    }
-  },
-  computed: {
-    pages () {
-      return this.pagination.rowsPerPage ? Math.ceil(this.data.people.length / this.pagination.rowsPerPage) : 0
     }
   },
   components: { PieChart },
@@ -100,8 +90,8 @@ export default {
     .then(response => {
       this.$store.dispatch('load_insights_followers', response.data.data)
     })
-    .catch(error => {
-      console.log(error)
+    .catch(() => {
+      this.$store.dispatch('show_error', 'Network Error')
     })
   },
   methods: {

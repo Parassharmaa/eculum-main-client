@@ -75,10 +75,10 @@ export default {
           .catch(error => {
             this.$store.dispatch('show_error', error.response.data.message)
             this.loading = false
-            this.$validator.clean()
+            this.$validator.reset()
           })
           .catch(error => {
-            this.$store.dispatch('show_error', 'Unexpected Error')
+            this.$store.dispatch('show_error', 'Can\'t connect to the server')
             this.loading = false
             console.log(error)
           })
