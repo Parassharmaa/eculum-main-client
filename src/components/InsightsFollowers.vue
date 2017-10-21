@@ -11,37 +11,46 @@
       class="primary"
       :value="true"
       transition="scale-transition">
-      Not enough data to graph. Please, check back later!
+      No followers activity on {{ date }}
     </v-alert>
     <br>
   </div>
-        <v-container>
-      <v-layout justify-space-between v-if='data.interest.data.length!==0'>
-        <v-flex xs6 sm12 md12>
-          <v-menu
-            transition="slide-y-transition"
-            bottom
-          >    
-            <v-btn flat small slot="activator">
-              <v-icon>filter_list</v-icon>
-              &nbsp;Filter by date
-            </v-btn>
-          <v-list>
-            <v-list-tile v-for="item in filter_dates" @click="">
-              <v-list-tile-title>{{ item }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
+      <v-container>
+      <v-layout row justify-space-between>
+        <v-flex xs6 sm12 md12 xs8>  
+            <v-menu
+              :close-on-content-click="true"
+              transition="scale-transition"
+              offset-y
+              full-width
+              :nudge-right="40"
+              min-width="290px"
+            >
+            <v-btn
+              slot="activator"
+              label="Filter by date"
+              flat small
+            >
+            <v-icon>filter_list</v-icon>
+            &nbsp;Filter</v-btn>
+            <v-date-picker v-model="date" :allowed-dates="allowedDates">
+              <template scope="{ save, cancel }">
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn flat color="primary" @click="reload">View Recent</v-btn>
+                </v-card-actions>
+              </template>
+            </v-date-picker>
           </v-menu>
-           
         </v-flex>
-        <v-flex >
+        <v-flex>
             <span></span>
             <v-btn flat small @click="tweet_followers_insight">
             <v-icon>share</v-icon>&nbsp;Share</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
-      <v-card :height="'350px'" class="pa-2">
+      <v-card :height="'350px'" class="pa-2" v-if='data.interest.data.length!==0'>
         <pie-chart 
           :heading="heading" 
           :data="data.interest.data"
@@ -89,6 +98,8 @@ export default {
   name: 'insights_overview',
   data () {
     return {
+      date: null,
+      allowedDates: [],
       search: '',
       pagination: {},
       selected: [],
@@ -104,8 +115,27 @@ export default {
       heading: 'Followers\'s Interest %'
     }
   },
+  watch: {
+    date: function (newV) {
+      this.$store.state.pending = true
+      Insights.followers_filter(newV)
+      .then(response => {
+        this.$store.dispatch('load_insights_followers', response.data.data)
+      })
+      .catch(() => {
+        this.$store.dispatch('show_error', 'Network Error')
+      })
+    }
+  },
   components: { PieChart },
   beforeCreate () {
+    Insights.dates()
+    .then(response => {
+      this.allowedDates = response.data.data.dates
+    })
+    .catch(() => {
+      this.$store.dispatch('show_error', 'Network Error')
+    })
     this.$store.state.pending = true
     Insights.followers()
     .then(response => {
@@ -116,9 +146,27 @@ export default {
     })
   },
   methods: {
+    reload () {
+      Insights.dates()
+      .then(response => {
+        this.allowedDates = response.data.data.dates
+      })
+      .catch(() => {
+        this.$store.dispatch('show_error', 'Network Error')
+      })
+      this.$store.state.pending = true
+      Insights.followers()
+      .then(response => {
+        this.$store.dispatch('load_insights_followers', response.data.data)
+      })
+      .catch(() => {
+        this.$store.dispatch('show_error', 'Network Error')
+      })
+    },
     tweet_followers_insight () {
-      let pc = this.data.interest.data[0]
-      let lb = this.data.interest.label[0].replace(' ', ' #').replace('', '#')
+      let i = parseInt(Math.random(10) * 100 % this.data.interest.data.length)
+      let pc = this.data.interest.data[i]
+      let lb = this.data.interest.label[i].replace(' ', ' #').replace('', '#')
       let tweetTemp = `My ${pc}% of new followers are interested in ${lb}, Checked via @eculum_ai`
       this.$store.dispatch('set_tweet', tweetTemp)
       this.$router.push({ name: 'create_tweet' })
