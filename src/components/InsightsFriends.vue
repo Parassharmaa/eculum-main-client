@@ -45,7 +45,7 @@
         </v-flex>
         <v-flex>
             <span></span>
-            <v-btn flat small @click="tweet_followers_insight">
+            <v-btn flat small @click="tweet_friends_insight">
             <v-icon>share</v-icon>&nbsp;Share</v-btn>
         </v-flex>
       </v-layout>
@@ -165,9 +165,10 @@ export default {
       })
     },
     tweet_friends_insight () {
-      let pc = this.data.interest.data[0]
-      let lb = this.data.interest.label[0].replace(' ', ' #').replace('', '#')
-      let tweetTemp = `My ${pc}% of new twitter friends are interested in ${lb}, Checked via @eculum_ai`
+      let i = parseInt(Math.random(10) * 100 % this.data.interest.data.length)
+      let pc = this.data.interest.data[i]
+      let lb = this.data.interest.label[i].replace(' ', ' #').replace('', '#')
+      let tweetTemp = `${pc}% of people that I follow are interested in ${lb}, Checked via @eculum_ai`
       this.$store.dispatch('set_tweet', tweetTemp)
       this.$router.push({ name: 'create_tweet' })
     }
