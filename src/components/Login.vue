@@ -4,14 +4,13 @@
       <v-card class="login-card" elevation-10>
       	<center>
         <a href="https://api.eculum.com/v1/auth/twitter" class="btn-url">
-          	<v-btn round primary dark class="twitter-color">
+          	<v-btn flat round primary dark class="twitter-color">
           		<img class="btn-icon" src="../assets/Twitter_Social_Icon_Circle_Color.png">
           		Login with Twitter
           	</v-btn>
         </a>
       	<br><br>
       	or
-      	<!-- <v-divider></v-divider> -->
     <form v-on:keyup.enter="login">
     <v-text-field
       v-model="cred.email"
@@ -32,11 +31,15 @@
       data-vv-name="password"
       required
       ></v-text-field>
-      <!-- <router-link to=''>
-      <p class="text-xs-right"> Forgot your password? </p>
-    </router-link> -->
-    <v-btn @click="login" primary>Login &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
-  </form>
+      <v-btn @click="login" primary>Login &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
+       </form>
+       <br>
+       <v-divider></v-divider>
+       <br>
+        Don't have an account? 
+       <a href="https://api.eculum.com/v1/auth/twitter" class="btn-url">
+        Sign up
+      </a>
       </center>
       </v-card>
     </v-flex>

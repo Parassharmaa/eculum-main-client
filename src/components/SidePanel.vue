@@ -18,6 +18,15 @@
         </v-list>
       </v-toolbar>
       <v-list class="pt-3" zero-line>
+        <v-list-tile v-bind:class="{lime: $route.path === '/home'}" @click="navigate_to('insights_overview')">
+          <v-list-tile-action>
+            <v-icon>home</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="side-text">Home</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+
         <v-subheader>Insights</v-subheader>
         <v-list-tile v-bind:class="{lime: $route.path === '/app'}" @click="navigate_to('insights_overview')">
           <v-list-tile-action>
@@ -44,7 +53,7 @@
             <v-list-tile-title class="side-text">Friends</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <br><v-divider></v-divider>
+        <!-- <br><v-divider></v-divider>
         <v-subheader>Create </v-subheader>
         <v-list-tile v-bind:class="{lime: $route.path === '/app/tweet'}" @click="navigate_to('create_tweet')">
           <v-list-tile-action>
@@ -53,7 +62,7 @@
           <v-list-tile-content>
             <v-list-tile-title class="side-text">Tweet</v-list-tile-title>
           </v-list-tile-content>
-        </v-list-tile>
+        </v-list-tile> -->
         <br><v-divider></v-divider>
         <v-list-tile @click="logout">
           <v-list-tile-action>

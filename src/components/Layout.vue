@@ -27,6 +27,12 @@
               Help
             </v-list-tile-title>
           </v-list-tile>
+          <v-list-tile @click="">
+            <v-list-tile-title>
+              <v-icon>help</v-icon>
+              Feedback
+            </v-list-tile-title>
+          </v-list-tile>
         </v-list>
       </v-menu>
     </v-toolbar>
