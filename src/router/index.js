@@ -8,7 +8,7 @@ import InsightsFollowers from '@/components/InsightsFollowers.vue'
 import Register from '@/components/Register.vue'
 import CreateTweet from '@/components/CreateTweet.vue'
 import Settings from '@/components/Settings.vue'
-
+import Home from '@/components/Home.vue'
 import store from '@/store/index.js'
 Vue.use(Router)
 
@@ -34,6 +34,12 @@ const router = new Router({
     },
     {
       path: '/app',
+      name: 'app',
+      component: Home,
+      meta: {validate: true}
+    },
+    {
+      path: '/app/insights',
       name: 'insights_overview',
       component: InsightsOverview,
       meta: {validate: true}

@@ -59,7 +59,7 @@
       </v-card>
       <br>
       <v-divider></v-divider>
-      <v-data-table
+      <!-- <v-data-table
       v-bind:headers="headers"
       v-bind:items="data.people"
       v-bind:search="search"
@@ -85,7 +85,47 @@
             <td  class="text-xs-right">{{ props.item.followers }}</td>
             <td  class="text-xs-right">{{ props.item.following }}</td>
         </template>
-      </v-data-table> 
+      </v-data-table>  -->
+      <v-flex xs12 v-for="item in data.people" v-bind:key="item.username" @click="" >
+            <v-card color="cyan darken-2">
+              <v-container fluid grid-list-lg>
+                <v-layout row>
+                  <v-flex xs1>
+                    <v-avatar>
+                      <img v-bind:src="item.profile_image">
+                    </v-avatar>
+                  </v-flex>
+                  <v-flex xs5>
+                    <div>
+                      <div><span class="subheading">{{item.name}}</span>
+                      <span class="caption"><a :href="'https://twitter.com/'+item.username">
+                        @{{item.username}}
+                      </a>
+                      </span>
+                    </div>
+                      <div class="caption">{{item.bio}}</div>
+                      <div>
+                        <v-chip small circle outline class="count-m primary">
+                          Followers <br>
+                          <b>{{item.followers}}</b>
+                        </v-chip>
+                        <v-chip small outline class="count-m primary">
+                          Following <br>
+                          <b>{{item.following}}</b>
+                        </v-chip>
+                      </div>
+                    </div>
+                  </v-flex>
+                  <v-flex xs3>
+                    <v-chip>
+                    <v-avatar class="primary">{{ item.interests[0] | capitalize }}</v-avatar>
+                      {{  item.interests }}
+                    </v-chip>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card>
+          </v-flex>
     </div>
 	</div>
 </template>
@@ -186,6 +226,11 @@ export default {
 <style scoped>
  .border-img {
     margin: 8px auto;
+ }
+
+ .pa4 {
+  width:100%;
+  padding: 16px 4px 20px 4px;
  }
 
 </style>

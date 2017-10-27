@@ -21,17 +21,17 @@
           <v-icon>more_vert</v-icon>
         </v-btn>
         <v-list>
-          <v-list-tile @click="">
+          <!-- <v-list-tile @click="">
             <v-list-tile-title>
               <v-icon>help</v-icon>
               Help
             </v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile @click="">
-            <v-list-tile-title>
-              <v-icon>help</v-icon>
+          </v-list-tile> -->
+          <v-list-tile>
+            <a href="https://www.surveymonkey.com/r/R5LTHGG" style="text-decoration:none; color:black" target="_blank"><v-list-tile-title>
+              <v-icon>edit</v-icon>
               Feedback
-            </v-list-tile-title>
+            </v-list-tile-title></a>
           </v-list-tile>
         </v-list>
       </v-menu>

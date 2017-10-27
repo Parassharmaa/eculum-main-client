@@ -26,7 +26,7 @@
       required
       ></v-text-field>
       <div class="text-xs-center caption"> By clicking on Register you accept our <br> 
-        <a href=""> Terms & Condition  </a>
+        <a href="https://eculum.com/terms"> Terms &amp; Condition  </a>
       </div>
       <br>
     <v-btn @click="register" primary>Register &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
