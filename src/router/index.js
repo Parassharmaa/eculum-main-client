@@ -51,7 +51,7 @@ const router = new Router({
       meta: {validate: true}
     },
     {
-      path: '/app/friends',
+      path: '/app/following',
       name: 'insights_friends',
       component: InsightsFriends,
       meta: {validate: true}

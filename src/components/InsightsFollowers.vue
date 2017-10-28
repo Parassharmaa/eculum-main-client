@@ -1,6 +1,7 @@
 <template>
 	<div>
-		<div class="subheading"> Followers </div>
+		<div class="subheading" v-if="!date"> Followers: <strong><small>{{ "Recent" }}</small></strong></div>
+    <div class="subheading" v-if="date"> Followers: <strong><small>{{ date }}</small></strong></div>
     <v-divider></v-divider>
     <center>
   		<v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
@@ -59,43 +60,16 @@
       </v-card>
       <br>
       <v-divider></v-divider>
-      <!-- <v-data-table
-      v-bind:headers="headers"
-      v-bind:items="data.people"
-      v-bind:search="search"
-      hide-actions
-      class="elevation-1"
-      >
-        <template slot="items" scope="props">
-            <td class="text-xs-left">
-              <v-avatar tile class="border-img">
-                <img v-bind:src="props.item.profile_image">
-              </v-avatar>
-            </td>
-            <td class="text-xs-left">
-                {{ props.item.name }}
-            </td>
-            <td  class="text-xs-left">@{{ props.item.username }}</td>
-            <td  class="text-xs-left">
-              <v-chip>
-                <v-avatar class="primary">{{ props.item.interests[0] | capitalize }}</v-avatar>
-                {{ props.item.interests }}
-              </v-chip>
-            </td>
-            <td  class="text-xs-right">{{ props.item.followers }}</td>
-            <td  class="text-xs-right">{{ props.item.following }}</td>
-        </template>
-      </v-data-table>  -->
       <v-flex xs12 v-for="item in data.people" v-bind:key="item.username" @click="" >
             <v-card color="cyan darken-2">
-              <v-container fluid grid-list-lg>
-                <v-layout row>
-                  <v-flex xs1>
+              <v-container fluid xs12 sm6 grid-list-lg>
+                <v-layout row wrap>
+                  <v-flex xs3 md1>
                     <v-avatar>
                       <img v-bind:src="item.profile_image">
                     </v-avatar>
                   </v-flex>
-                  <v-flex xs5>
+                  <v-flex xs12 md7>
                     <div>
                       <div><span class="subheading">{{item.name}}</span>
                       <span class="caption"><a :href="'https://twitter.com/'+item.username">
@@ -105,22 +79,20 @@
                     </div>
                       <div class="caption">{{item.bio}}</div>
                       <div>
-                        <v-chip small circle outline class="count-m primary">
+                        <v-chip label small class="ml-0 lime">
                           Followers <br>
-                          <b>{{item.followers}}</b>
+                          <b>{{item.followers}}</b> 
                         </v-chip>
-                        <v-chip small outline class="count-m primary">
+                        <v-chip label small class="ml-0 lime">
                           Following <br>
-                          <b>{{item.following}}</b>
+                          <b>{{item.following}}</b>  
                         </v-chip>
                       </div>
                     </div>
                   </v-flex>
-                  <v-flex xs3>
-                    <v-chip>
-                    <v-avatar class="primary">{{ item.interests[0] | capitalize }}</v-avatar>
-                      {{  item.interests }}
-                    </v-chip>
+                  <v-flex xs12 md4>
+                    <v-avatar class="red white--text" tile :size="'25px'">{{ item.interests[0] | capitalize }}</v-avatar>
+                      <strong>{{  item.interests | capitalize}}</strong>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -217,6 +189,12 @@ export default {
       if (!value) return ''
       value = value.toString()
       return value.charAt(0).toUpperCase() + value.slice(1)
+    },
+    truncate: function (value) {
+      if (value.length > 10) {
+        value.slice(0, 10)
+        return value
+      }
     }
   }
 }

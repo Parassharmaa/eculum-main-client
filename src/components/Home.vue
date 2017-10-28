@@ -5,7 +5,7 @@
     </center>
     <div v-if="!$store.getters.pending">
     <br>
-    <div style="font-size:1.3rem">Welcome {{user.twitter.name }}, Here are your recently used words from tweets</div>
+    <div style="font-size:1.6rem">Welcome {{user.twitter.name }}</div>
     <v-divider></v-divider>
     <br>
     <v-alert
@@ -19,6 +19,8 @@
         </v-btn>
         </router-link>
     </v-alert>
+    <br>
+    <div class="subheading text-xs-center">Here are your recently used keywords!</div>
     <v-card>
       <wordcloud
       :data="tags"

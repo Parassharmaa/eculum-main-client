@@ -45,12 +45,12 @@
           </v-list-tile-content>
         </v-list-tile>
         <!-- <v-divider></v-divider> -->
-        <v-list-tile v-bind:class="{lime: $route.path === '/app/friends'}" @click="navigate_to('insights_friends')">
+        <v-list-tile v-bind:class="{lime: $route.path === '/app/following'}" @click="navigate_to('insights_friends')">
           <v-list-tile-action>
             <v-icon>wc</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title class="side-text">Friends</v-list-tile-title>
+            <v-list-tile-title class="side-text">Following</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <br><v-divider></v-divider>
