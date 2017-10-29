@@ -27,6 +27,15 @@
       nameKey="name"
       valueKey="value">
       </wordcloud>
+      <div xs12 v-if="tags.length > 0">
+        <div class="subheading">
+          &nbsp;Recent keywords
+          <v-divider></v-divider>
+        </div>
+        <div class="text-xs-center">
+          <v-chip v-for='w in tags' class="lime" @click="tweet_tag(w.name)" label>#{{w.name}}</v-chip>
+        </div>
+      </div>
    </v-card>
     </div>
   </div>
@@ -60,6 +69,13 @@ export default{
     .catch((e) => {
       this.$store.dispatch('show_error', 'Network Error')
     })
+  },
+  methods: {
+    tweet_tag (t) {
+      let tweetTemp = `#${t}`
+      this.$store.dispatch('set_tweet', tweetTemp)
+      this.$router.push({ name: 'create_tweet' })
+    }
   }
 }
 

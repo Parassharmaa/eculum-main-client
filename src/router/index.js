@@ -9,6 +9,7 @@ import Register from '@/components/Register.vue'
 import CreateTweet from '@/components/CreateTweet.vue'
 import Settings from '@/components/Settings.vue'
 import Home from '@/components/Home.vue'
+import Arena from '@/components/Arena.vue'
 import store from '@/store/index.js'
 Vue.use(Router)
 
@@ -54,6 +55,12 @@ const router = new Router({
       path: '/app/following',
       name: 'insights_friends',
       component: InsightsFriends,
+      meta: {validate: true}
+    },
+    {
+      path: '/app/arena',
+      name: 'arena',
+      component: Arena,
       meta: {validate: true}
     },
     {
