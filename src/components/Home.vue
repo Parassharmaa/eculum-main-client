@@ -33,7 +33,7 @@
           <v-divider></v-divider>
         </div>
         <div class="text-xs-center">
-          <v-chip v-for='w in tags' class="lime" @click="tweet_tag(w.name)" label>#{{w.name}}</v-chip>
+          <v-chip v-for='w in tags'  v-bind:key="w.name" class="lime" @click="tweet_tag(w.name)" label>#{{w.name}}</v-chip>
         </div>
       </div>
    </v-card>

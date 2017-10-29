@@ -59,12 +59,14 @@
           </v-flex>
           <v-flex xs12 v-if="o_tags.length > 0">
             <div class="subheading">
-              Common Words
-              <v-divider></v-divider>
+              <v-btn icon small @click="tweet_interests">
+                <v-icon>share</v-icon>
+              </v-btn>Common Interests
+            <v-divider></v-divider>
             </div>
             <div class="text-xs-center">
-              <v-chip v-for='w in common_words' class="lime" v-if='common_words.length > 0' label>#{{w.name}}</v-chip>
-              <span class="caption" v-if='common_words.length === 0'>No Common Words!</span>
+              <v-chip v-for='w in common_words' v-bind:key="w.name" class="lime" v-if='common_words.length > 0' label>#{{w.name}}</v-chip>
+              <span class="caption" v-if='common_words.length === 0'>No Common Interests!</span>
             </div>
           </v-flex>
         </v-flex>
@@ -139,7 +141,22 @@ export default{
           this.$store.dispatch('show_error', 'Network Error')
         })
       }
-    }, 1000)
+    }, 1000),
+
+    tweet_interests () {
+      if (this.common_words.length > 0) {
+        let cint = ''
+        let shuffledWords = _.shuffle(this.common_words)
+        for (var w in shuffledWords) {
+          if (w < 3) {
+            cint += `#${shuffledWords[w]['text']} `
+          }
+        }
+        let tweetTemp = `I and @${this.user2} have common interest in ${cint}, Checked via https://eculum.com`
+        this.$store.dispatch('set_tweet', tweetTemp)
+        this.$router.push({ name: 'create_tweet' })
+      }
+    }
   }
 }
 
