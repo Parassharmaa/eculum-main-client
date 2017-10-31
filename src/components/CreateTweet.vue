@@ -120,6 +120,7 @@
 </template>
 
 <script>
+
 import Tweet from '@/api/CreateTweet'
 import _ from 'lodash'
 import Predict from '@/api/PredictHashtag'
@@ -134,10 +135,14 @@ export default {
       cred: {
         tweet: this.$store.getters.tweetMsg
       },
+      auth_header: {
+        'Authorization': localStorage.getItem('eclmtoken')
+      },
       words: [],
       hashtags: [],
       worldwide: [],
-      sending: false
+      sending: false,
+      imageList: []
     }
   },
   beforeCreate () {
@@ -174,7 +179,6 @@ export default {
         this.$store.dispatch('show_error', 'Network Error')
       })
     },
-
     analyse_tweet: _.debounce(function (e) {
       this.hashtag_load = true
       Predict.get_tags(e.target.value)

@@ -21,11 +21,8 @@
         <v-flex xs6 sm12 md12 xs8>  
             <v-menu
               :close-on-content-click="true"
-              transition="scale-transition"
+              transition="slide-x-reverse-transition"
               offset-y
-              full-width
-              :nudge-right="40"
-              min-width="290px"
             >
             <v-btn
               slot="activator"
@@ -108,21 +105,12 @@ import PieChart from './charts/PieChart.js'
 
 export default {
   name: 'insights_overview',
+  components: { PieChart },
   data () {
     return {
+      dialogShow: false,
       date: null,
       allowedDates: [],
-      search: '',
-      pagination: {},
-      selected: [],
-      headers: [
-        { text: '', value: '', sortable: false },
-        { text: 'Name', align: 'left', value: 'name' },
-        { text: 'Username', value: 'username', align: 'left' },
-        { text: 'Interest', value: 'interests', align: 'left' },
-        { text: 'Followers', value: 'followers' },
-        { text: 'Following', value: 'following' }
-      ],
       data: this.$store.getters.insights_followers,
       heading: 'Followers\'s Interest %'
     }
@@ -139,7 +127,6 @@ export default {
       })
     }
   },
-  components: { PieChart },
   beforeCreate () {
     Insights.dates()
     .then(response => {

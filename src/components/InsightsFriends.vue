@@ -21,11 +21,8 @@
         <v-flex xs6 sm12 md12 xs8>  
             <v-menu
               :close-on-content-click="true"
-              transition="scale-transition"
+              transition="slide-x-reverse-transition"
               offset-y
-              full-width
-              :nudge-right="40"
-              min-width="290px"
             >
             <v-btn
               slot="activator"
