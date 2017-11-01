@@ -18,6 +18,7 @@
   </div>
   <v-container>
       <v-layout row justify-space-between>
+        <user-dialog :activate='dialogShow' @close='closeDialog' :username="username"></user-dialog>
         <v-flex xs6 sm12 md12 xs8>  
             <v-menu
               :close-on-content-click="true"
@@ -57,15 +58,15 @@
       </v-card>
       <br>
       <v-flex xs12 v-for="item in data.people" v-bind:key="item.username" @click="" >
-            <v-card>
-               <v-container fluid xs12 sm6 grid-list-lg>
+            <v-card class="hover-raise elevation-2" ripple @click.stop="load_user(item.username)">
+              <v-container fluid xs12 sm6 grid-list-lg>
                 <v-layout row wrap>
                   <v-flex xs3 md1>
                     <v-avatar>
                       <img v-bind:src="item.profile_image">
                     </v-avatar>
                   </v-flex>
-                  <v-flex xs12 md7>
+                  <v-flex xs12 md6>
                     <div>
                       <div><span class="subheading">{{item.name}}</span>
                       <span class="caption"><a :href="'https://twitter.com/'+item.username">
@@ -86,9 +87,9 @@
                       </div>
                     </div>
                   </v-flex>
-                  <v-flex xs12 md4>
-                    <v-avatar class="red white--text elevation-2" tile :size="'25px'">{{ item.interests[0] | capitalize }}</v-avatar>
-                      <strong>{{  item.interests | capitalize}}</strong>
+                  <v-flex xs12 md5>
+                    <v-avatar class="red white--text" tile :size="'25px'">{{ item.interests[0] | capitalize }}</v-avatar>
+                      <strong>{{  item.interests | capitalize }}</strong>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -101,12 +102,16 @@
 <script>
 import Insights from '@/api/Insights'
 import PieChart from './charts/PieChart.js'
+import UserDialog from './common/UserDialog'
 
 export default {
   name: 'insights_overview',
+  components: { PieChart, UserDialog },
   data () {
     return {
       date: null,
+      dialogShow: false,
+      username: '',
       allowedDates: [],
       search: '',
       pagination: {},
@@ -136,7 +141,6 @@ export default {
       })
     }
   },
-  components: { PieChart },
   beforeCreate () {
     Insights.dates()
     .then(response => {
@@ -179,6 +183,14 @@ export default {
       let tweetTemp = `${pc}% of people that I follow are interested in ${lb}, Checked via @eculum_ai`
       this.$store.dispatch('set_tweet', tweetTemp)
       this.$router.push({ name: 'create_tweet' })
+    },
+    load_user (username) {
+      this.dialogShow = true
+      this.username = username
+    },
+    closeDialog () {
+      this.dialogShow = false
+      this.username = ''
     }
   },
   filters: {
@@ -198,5 +210,15 @@ export default {
   margin: 8px auto;
 }
 
+.pa4 {
+  width:100%;
+  padding: 16px 4px 20px 4px;
+}
+
+.hover-raise:hover {
+  box-shadow: 5px 8px 10px 10px #eee;
+  cursor: pointer;
+  background: #eee;
+}
 </style>
 
