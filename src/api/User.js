@@ -26,5 +26,14 @@ export default {
       data: payload,
       headers: {'Authorization': localStorage.getItem('eclmtoken')}
     })
+  },
+
+  premiumRequest (payload) {
+    return axios({
+      method: 'post',
+      url: `${api.url}user/premium/request`,
+      data: payload,
+      headers: {'Authorization': localStorage.getItem('eclmtoken')}
+    })
   }
 }

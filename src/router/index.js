@@ -10,6 +10,7 @@ import CreateTweet from '@/components/CreateTweet.vue'
 import Settings from '@/components/Settings.vue'
 import Home from '@/components/Home.vue'
 import Arena from '@/components/Arena.vue'
+import Buy from '@/components/Buy.vue'
 import store from '@/store/index.js'
 Vue.use(Router)
 
@@ -49,30 +50,36 @@ const router = new Router({
       path: '/app/followers',
       name: 'insights_followers',
       component: InsightsFollowers,
-      meta: {validate: true}
+      meta: {validate: true, premium: true}
     },
     {
       path: '/app/following',
       name: 'insights_friends',
       component: InsightsFriends,
-      meta: {validate: true}
+      meta: {validate: true, premium: true}
     },
     {
       path: '/app/arena',
       name: 'arena',
       component: Arena,
-      meta: {validate: true}
+      meta: {validate: true, premium: true}
     },
     {
       path: '/app/tweet',
       name: 'create_tweet',
       component: CreateTweet,
-      meta: {validate: true}
+      meta: {validate: true, premium: true}
     },
     {
       path: '/app/settings',
       name: 'settings',
       component: Settings,
+      meta: { validate: true }
+    },
+    {
+      path: '/app/buy',
+      name: 'buy',
+      component: Buy,
       meta: { validate: true }
     },
     {
@@ -130,6 +137,30 @@ router.beforeEach((to, from, next) => {
     } else {
       next()
     }
+  } else {
+    next()
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.premium)) {
+    next()
+    Validate.valid()
+    .then(response => {
+      if (response.data.premium !== 1) {
+        next({
+          path: '/app/buy'
+        })
+      }
+    })
+    .catch((err) => {
+      if (err.response && err.response.status === 401) {
+        store.dispatch('show_error', 'Authentication Error, Please Login Again')
+        next({
+          path: '/'
+        })
+      }
+    })
   } else {
     next()
   }
