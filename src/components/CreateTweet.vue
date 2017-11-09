@@ -11,9 +11,9 @@
            <v-text-field
               label="What's happening?"
               v-model="cred.tweet"
-              :counter="140"
+              :counter="280"
               :rules="[
-              () => cred.tweet.length <= 140 || 'Tweet must be less than 140 characters'
+              () => cred.tweet.length <= 280 || 'Tweet must be less than 280 characters'
               ]"
               full-width
               hide-details
@@ -24,8 +24,8 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn primary round disabled v-if="cred.tweet === '' || cred.tweet.length > 140 || sending === true">Tweet</v-btn>
-            <v-btn primary round @click="send_tweet" v-if="cred.tweet !== '' && cred.tweet.length <= 140 && sending === false">Tweet</v-btn>
+            <v-btn primary round disabled v-if="cred.tweet === '' || cred.tweet.length > 280 || sending === true">Tweet</v-btn>
+            <v-btn primary round @click="send_tweet" v-if="cred.tweet !== '' && cred.tweet.length <= 280 && sending === false">Tweet</v-btn>
           </v-card-actions>
         </v-card>
         <br>
