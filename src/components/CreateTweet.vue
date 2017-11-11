@@ -19,7 +19,7 @@
               hide-details
               multi-line
               single-line
-              @keyup='analyse_tweet'
+              @keyup="write_tweet"
             ></v-text-field>
           <v-divider></v-divider>
           <v-card-actions>
@@ -85,8 +85,8 @@
             </v-list>
           </v-card-title>
           <div class="tweet-sample-area">
-            <div v-if="cred.tweet !== ''">
-              {{cred.tweet}}
+            <div v-if="cred.tweet !== ''" v-html="cred.tweet_copy">
+
             </div>
             <div v-if="cred.tweet === ''">
               Your tweet sample will appear here..
@@ -131,7 +131,8 @@ export default {
       hashtag_load: false,
       user: this.$store.getters.user,
       cred: {
-        tweet: this.$store.getters.tweetMsg
+        tweet: this.$store.getters.tweetMsg,
+        tweet_copy: ''
       },
       auth_header: {
         'Authorization': localStorage.getItem('eclmtoken')
@@ -141,6 +142,11 @@ export default {
       worldwide: [],
       sending: false,
       imageList: []
+    }
+  },
+  watch: {
+    'cred.tweet': function () {
+      this.write_tweet()
     }
   },
   beforeCreate () {
@@ -177,9 +183,9 @@ export default {
         this.$store.dispatch('show_error', 'Network Error')
       })
     },
-    analyse_tweet: _.debounce(function (e) {
+    analyse_tweet: _.debounce(function () {
       this.hashtag_load = true
-      Predict.get_tags(e.target.value)
+      Predict.get_tags(this.cred.tweet)
       .then(response => {
         this.words = response.data.words
         this.hashtags = response.data.hashtags
@@ -189,9 +195,8 @@ export default {
         this.hashtag_load = false
         this.$store.dispatch('show_error', error.response.data.message)
       })
-      .catch(error => {
+      .catch(() => {
         this.hashtag_load = false
-        console.log(error)
         this.$store.dispatch('show_error', 'Cannot get suggestions')
       })
     }, 1000),
@@ -203,6 +208,12 @@ export default {
       if (this.cred.tweet.search(`#${tag}`) === -1) {
         this.cred.tweet = this.cred.tweet.toLowerCase().replace(tag, `#${tag}`)
       }
+    },
+    write_tweet () {
+      this.analyse_tweet()
+      this.cred.tweet_copy = this.cred.tweet
+      this.cred.tweet_copy = this.cred.tweet_copy.replace(/#(\S+)/g, '<span class="ht-highlight">#$1</span>')
+      this.cred.tweet_copy = this.cred.tweet_copy.replace(/@(\S+)/g, '<span class="ht-highlight">#$1</span>')
     }
   }
 }
@@ -228,5 +239,15 @@ export default {
 .wrap {
   padding:8px;
   word-wrap: break-word;
+}
+
+</style>
+
+
+<style>
+
+.ht-highlight {
+  color: #1b95e0;
+  font-weight: normal;
 }
 </style>
