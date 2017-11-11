@@ -9,10 +9,10 @@
             <v-list-tile-content>
               <v-list-tile-title>
                 {{ user.twitter.name }}
-                <small class="tag green" v-if="user.premium" @click="navigate_to('buy')">
+                <small class="tag green" v-if="!user.premium" @click="navigate_to('buy')">
                   Free
                 </small>
-                <small class="tag red" v-if="!user.premium">
+                <small class="tag red" v-if="user.premium">
                   Premium
                 </small>
               </v-list-tile-title>
