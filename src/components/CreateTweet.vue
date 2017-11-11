@@ -1,5 +1,5 @@
 <template>
-	<div>
+  <div>
     <v-container grid-list-md text-xs-center>
     <v-layout row wrap>
       <v-flex xs12 sm12 md6 lg6 xl6>
@@ -120,12 +120,10 @@
 </template>
 
 <script>
-
-import Tweet from '@/api/CreateTweet'
+import Tweet from '@/api/Tweet'
 import _ from 'lodash'
 import Predict from '@/api/PredictHashtag'
 import Trends from '@/api/Trends'
-
 export default {
   name: 'create_tweet',
   data () {
@@ -212,28 +210,23 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
 .tweet-sample-area {
    text-align:left; 
    word-wrap:break-word; 
    padding: 0px 30px 10px 30px;
    margin-top:-20px;
 }
-
 .hasht-click {
   background: #ddd;
   border-radius:4px;
   cursor: pointer;
   font-weight:500;
 }
-
 .hasht-click:hover {
   background: #cddc39;
 }
-
 .wrap {
   padding:8px;
   word-wrap: break-word;
 }
-
 </style>

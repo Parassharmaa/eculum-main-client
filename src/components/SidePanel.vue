@@ -7,7 +7,15 @@
               <img v-bind:src="user.twitter.profile_image">
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>{{ user.twitter.name }}</v-list-tile-title>
+              <v-list-tile-title>
+                {{ user.twitter.name }}
+                <small class="tag green" v-if="user.premium" @click="navigate_to('buy')">
+                  Free
+                </small>
+                <small class="tag red" v-if="!user.premium">
+                  Premium
+                </small>
+              </v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn icon @click.native.stop="navigate_to('settings')">
@@ -139,5 +147,13 @@ router-link {
 .active {
   background: green
 }
+
+.tag {
+  color:#fff;
+  padding:2px;
+  margin-left: 16px;
+  cursor: pointer;
+}
+
 </style>
 
