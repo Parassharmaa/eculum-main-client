@@ -9,7 +9,7 @@
     <v-divider></v-divider>
     <br>
     <v-alert
-      class='grey vert-center'
+      class='grey vert-center round-card'
       :value="true"
       transition="scale-transition">
       {{action_s}}
@@ -21,7 +21,7 @@
     </v-alert>
     <br>
     <div class="subheading text-xs-center">Here are your recently used keywords!</div>
-    <v-card>
+    <v-card class="round-card">
       <wordcloud
       :data="tags"
       nameKey="name"

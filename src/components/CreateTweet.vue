@@ -7,7 +7,7 @@
         <br>
         <v-divider></v-divider>
         <br>
-        <v-card>
+        <v-card class="round-card">
            <v-text-field
               label="What's happening?"
               v-model="cred.tweet"
@@ -29,7 +29,7 @@
           </v-card-actions>
         </v-card>
         <br>
-        <v-card>
+        <v-card class="round-card">
             <v-flex xs12 sm12 md12>
             <div class='wrap'>
                 <v-chip class='hasht-click' @click='replace_tag(w)' v-for="w in words" :key='words.index'>
@@ -66,7 +66,7 @@
         <br>
         <v-divider></v-divider>
         <br>
-        <v-card>
+        <v-card class="round-card">
            <v-card-title primary-title>
             <v-list>
               <v-list-tile avatar>
@@ -213,7 +213,7 @@ export default {
       this.analyse_tweet()
       this.cred.tweet_copy = this.cred.tweet
       this.cred.tweet_copy = this.cred.tweet_copy.replace(/#(\S+)/g, '<span class="ht-highlight">#$1</span>')
-      this.cred.tweet_copy = this.cred.tweet_copy.replace(/@(\S+)/g, '<span class="ht-highlight">#$1</span>')
+      this.cred.tweet_copy = this.cred.tweet_copy.replace(/@(\S+)/g, '<span class="ht-highlight">@$1</span>')
     }
   }
 }

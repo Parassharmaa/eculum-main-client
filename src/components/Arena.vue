@@ -9,7 +9,7 @@
     </center>
     <div v-if="!$store.getters.pending">
     <br>
-    <v-card>
+    <v-card class='round-card'>
     <v-container fluid xs12 sm6 grid-list-md>
       <v-layout row wrap>
         <v-flex xs12 md6>

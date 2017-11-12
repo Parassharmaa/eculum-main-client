@@ -9,10 +9,10 @@
             <v-list-tile-content>
               <v-list-tile-title>
                 {{ user.twitter.name }}
-                <small class="tag green" v-if="!user.premium" @click="navigate_to('buy')">
-                  Free
+                <small class="tag red" v-if="!user.premium" @click="navigate_to('buy')">
+                  Upgrade
                 </small>
-                <small class="tag red" v-if="user.premium">
+                <small class="tag green" v-if="user.premium">
                   Premium
                 </small>
               </v-list-tile-title>
@@ -151,7 +151,7 @@ router-link {
 .tag {
   color:#fff;
   padding:2px;
-  margin-left: 16px;
+  margin-left: 4px;
   cursor: pointer;
 }
 

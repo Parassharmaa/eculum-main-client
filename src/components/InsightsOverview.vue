@@ -7,7 +7,7 @@
       <v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
     </center>
     <div v-if="!$store.getters.pending">
-    <v-card class='pa-2'>
+    <v-card class='pa-2 round-card'>
     <v-layout row wrap>
       <v-flex xs12 sm12 md12 xl12 style="text-align:center">
       <v-chip label outline class="count-m primary">

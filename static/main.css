@@ -14,6 +14,10 @@ html, body {
 	overflow: auto !important;
 }
 
+.round-card {
+  border-radius: 16px;
+}
+
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 @font-face {
     font-family: "edgeicons";

@@ -1,7 +1,7 @@
 <template>
 	<v-layout row>
     <v-flex>
-      <v-card class="login-card" elevation-10>
+      <v-card class="login-card round-card" elevation-10>
       	<center>
         <a href="https://api.eculum.com/v1/auth/twitter" class="btn-url">
           	<v-btn flat round primary dark class="twitter-color">
@@ -31,7 +31,7 @@
       data-vv-name="password"
       required
       ></v-text-field>
-      <v-btn @click="login" primary>Login &nbsp;&nbsp;<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1"></v-progress-circular></v-btn>
+      <v-btn @click="login" primary>Login<v-progress-circular v-show="loading" v-bind:size="15" v-bind:width="5" indeterminate class="white-text" style="flex:1">&nbsp;&nbsp;</v-progress-circular></v-btn>
        </form>
        <br>
        <v-divider></v-divider>

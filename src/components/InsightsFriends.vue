@@ -49,7 +49,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-      <v-card :height="'350px'" class="pa-2" v-if='data.interest.data.length!==0'>
+      <v-card :height="'350px'" class="pa-2 round-card" v-if='data.interest.data.length!==0'>
         <pie-chart 
           :heading="heading" 
           :data="data.interest.data"

@@ -33,6 +33,9 @@ html {
   overflow: auto !important
 }
 
+.round-card {
+  border-radius: 16px !important;
+}
 </style>
 
 <style lang="stylus">

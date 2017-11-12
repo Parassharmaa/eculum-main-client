@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="showDialog" width="'600px'" transition="slide-x-reverse-transition">
-      <v-card>
+      <v-card class="round-card">
         <v-card-actions>
         <v-btn icon color="blue darken-1" flat @click.native="showDialog = false">
           <v-icon>close</v-icon>

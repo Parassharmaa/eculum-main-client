@@ -49,7 +49,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-      <v-card :height="'350px'" class="pa-2" v-if='data.interest.data.length!==0'>
+      <v-card :height="'350px'" class="pa-2 round-card" v-if='data.interest.data.length!==0'>
         <pie-chart 
           :heading="heading" 
           :data="data.interest.data"
@@ -57,7 +57,6 @@
         ></pie-chart>
       </v-card>
       <br>
-      <v-divider></v-divider>
       <v-flex xs12 v-for="item in data.people" v-bind:key="item.username" @click="" >
             <v-card class="hover-raise elevation-2" ripple @click.stop="load_user(item.username)">
               <v-container fluid xs12 sm6 grid-list-lg>

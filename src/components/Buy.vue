@@ -4,7 +4,7 @@
     <v-divider></v-divider>
      <v-layout row justify-center>
     <v-dialog v-model="paymentd" persistent width="'600px'" transition="slide-y-transition">
-      <v-card>
+      <v-card class="round-card">
         <v-card-title>
           <span class="headline">Details</span>
         </v-card-title>
@@ -68,9 +68,9 @@
     <v-container sm6 wrap grid-list-lg>
     <v-layout row wrap>
     <v-flex d-flex sm12 md7>
-        <v-carousel class="elevation-0">
+        <v-carousel class="elevation-0 round-card">
         <v-carousel-item v-for="f in cfeatures"v-bind:key="f.id" v-bind:src="'a'">
-            <v-card style="width: 100%; height:100%; margin-bottom:100px">
+            <v-card class="round-card" style="width: 100%; height:100%; margin-bottom:100px">
               <img
                 :src="f.img"
                 height="380px"
@@ -88,7 +88,7 @@
      </v-carousel>
     </v-flex>
     <v-flex xs12 sm12 md5>
-      <v-card class="elevation-5">
+      <v-card class="elevation-5 round-card">
         <div class="white--text primary pt-4 pb-3 text-xs-center elevation-5">
             <div class="display-1 pt-4 pb-3">{{price}}</div>
         </div>
