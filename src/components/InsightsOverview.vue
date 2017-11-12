@@ -2,9 +2,8 @@
 	<div>
 		<div class="subheading"> Overview </div>
     <v-divider></v-divider>
-    <br>
     <center>
-      <v-progress-circular indeterminate class="primary--text" v-show="$store.getters.pending" v-bind:size="90" v-bind:width="1"></v-progress-circular>
+      <ecl-loader-l></ecl-loader-l>
     </center>
     <div v-if="!$store.getters.pending">
     <v-card class='pa-2 round-card'>

@@ -14,6 +14,15 @@ Vue.use(Vuetify)
 Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
+Vue.component('ecl-loader-l', {
+  template: `<div class="cssload-thecube" v-show="$store.getters.pending">
+<div class="cssload-cube cssload-c1"></div>
+<div class="cssload-cube cssload-c2"></div>
+<div class="cssload-cube cssload-c4"></div>
+<div class="cssload-cube cssload-c3"></div>
+</div>`
+})
+
 localforage.config({
   name: 'eculum'
 })
