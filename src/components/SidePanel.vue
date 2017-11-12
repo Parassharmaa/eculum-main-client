@@ -9,10 +9,10 @@
             <v-list-tile-content>
               <v-list-tile-title>
                 {{ user.twitter.name }}
-                <small class="tag red" v-if="!user.premium" @click="navigate_to('buy')">
+                <small class="tag red" v-show="user.premium == 0" @click="navigate_to('buy')">
                   Upgrade
                 </small>
-                <small class="tag green" v-if="user.premium">
+                <small class="tag green" v-show="user.premium == 1">
                   Premium
                 </small>
               </v-list-tile-title>
@@ -25,7 +25,7 @@
           </v-list-tile>
         </v-list>
       </v-toolbar>
-      <v-list class="pt-3" zero-line>
+      <v-list class="pt-3 round-card" zero-line>
         <v-list-tile v-bind:class="{lime: $route.path === '/app'}" @click="navigate_to('app')">
           <v-list-tile-action>
             <v-icon>home</v-icon>
@@ -151,7 +151,7 @@ router-link {
 .tag {
   color:#fff;
   padding:2px;
-  margin-left: 4px;
+  margin-left: 1px;
   cursor: pointer;
 }
 
