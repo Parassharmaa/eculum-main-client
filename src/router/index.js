@@ -11,6 +11,7 @@ import Settings from '@/components/Settings.vue'
 import Home from '@/components/Home.vue'
 import Arena from '@/components/Arena.vue'
 import Buy from '@/components/Buy.vue'
+import Articles from '@/components/Articles.vue'
 import store from '@/store/index.js'
 Vue.use(Router)
 
@@ -80,6 +81,12 @@ const router = new Router({
       path: '/app/buy',
       name: 'buy',
       component: Buy,
+      meta: { validate: true }
+    },
+    {
+      path: '/app/suggestions/articles',
+      name: 'articles',
+      component: Articles,
       meta: { validate: true }
     },
     {

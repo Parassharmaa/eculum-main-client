@@ -78,6 +78,14 @@
             <v-list-tile-title class="side-text">Tweet</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile v-bind:class="{lime: $route.path === '/app/suggestions/articles'}" @click="navigate_to('articles')">
+          <v-list-tile-action>
+            <v-icon>book</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title class="side-text">Suggested Content</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <br><v-divider></v-divider>
         <v-list-tile @click="logout">
           <v-list-tile-action>
@@ -149,8 +157,10 @@ router-link {
 }
 
 .tag {
+  font-size: 8px;
+  font-weight: 600;
   color:#fff;
-  padding:2px;
+  padding:4px;
   margin-left: 1px;
   cursor: pointer;
 }
