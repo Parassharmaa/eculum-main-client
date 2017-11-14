@@ -25,7 +25,7 @@
           </v-list-tile>
         </v-list>
       </v-toolbar>
-      <v-list class="pt-3 round-card" zero-line>
+      <v-list class="pt-2 round-card">
         <v-list-tile v-bind:class="{lime: $route.path === '/app'}" @click="navigate_to('app')">
           <v-list-tile-action>
             <v-icon>home</v-icon>
@@ -68,7 +68,7 @@
             <v-list-tile-title class="side-text">Arena</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <br><v-divider></v-divider>
+        <v-divider></v-divider>
         <v-subheader>Compose </v-subheader>
         <v-list-tile v-bind:class="{lime: $route.path === '/app/tweet'}" @click="navigate_to('create_tweet')">
           <v-list-tile-action>
@@ -86,7 +86,7 @@
             <v-list-tile-title class="side-text">Suggested Content</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <br><v-divider></v-divider>
+        <v-divider></v-divider>
         <v-list-tile @click="logout">
           <v-list-tile-action>
             <v-icon>exit_to_app</v-icon>

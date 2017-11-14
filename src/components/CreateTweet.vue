@@ -162,6 +162,9 @@ export default {
       this.$store.dispatch('show_error', 'Unexpected Error')
     })
   },
+  created () {
+    this.analyse_tweet()
+  },
   methods: {
     send_tweet () {
       this.sending = true
