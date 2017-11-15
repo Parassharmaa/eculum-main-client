@@ -25,6 +25,7 @@
           </v-list-tile>
         </v-list>
       </v-toolbar>
+      <br>
       <v-list class="pt-2 round-card">
         <v-list-tile v-bind:class="{lime: $route.path === '/app'}" @click="navigate_to('app')">
           <v-list-tile-action>
@@ -34,7 +35,7 @@
             <v-list-tile-title class="side-text">Home</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-
+        <v-divider></v-divider>
         <v-subheader>Insights</v-subheader>
         <v-list-tile v-bind:class="{lime: $route.path === '/app/insights'}" @click="navigate_to('insights_overview')">
           <v-list-tile-action>
